@@ -60,3 +60,8 @@ padding: 2.5%;
     color: lightblue;
 }
 
+.border-standard {
+    border: 3px black solid;
+    border-radius: 10px;
+}
+

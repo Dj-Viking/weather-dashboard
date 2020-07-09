@@ -30,22 +30,37 @@
                     <h2 class="card-title">
                         Search for a city:
                     </h2>
-                    <div class="card row">
-                        <form class="form-textarea" autocomplete="off">
+                    <div class="row">
+                        <form class="card form-textarea ml-2" autocomplete="off">
                             <input 
-                                name="username" 
-                                id="username" 
+                                name="cityname" 
+                                id="city-name" 
                                 type="text" 
                                 autofocus="true" 
                                 class="form-input"
                             />
                         </form>
-                        <button type="submit" id="submit-button" class="btn button-colors">
+                        <button type="submit" id="submit-button" class="btn button-colors mb-2 ml-2">
                             search
                         </button>
-                        <!-- dynamically generate divs containing the city name entered -->
-                        <!-- the div created will be the text object from the promise returned from the api call to open weather -->
+                        <div class="mt-2">
+                            <!-- dynamically generate divs containing the city name entered -->
+                            <!-- div generated contains <a> link to display the weather in that city -->
+                        </div>                        
+                        <!-- the div appended will be the text object from the promise returned from the api call to open weather -->
                     </div>
+                    <!-- city name section start-->
+                    <section class="container">
+                        <!-- elements here are dynamically generated with the <a> tag that will create elements in the container to the right that contains the weather for the week in that city -->
+                        <!-- info will be updated and appended each time the <a> is clicked the old material will clear and make room for the new stuff after clicking the <a> -->
+                        <div class="container row border-standard">
+                            <span>
+                                dynamically generated below as the city searched
+                            </span>
+                        </div>
+                        <!-- append new city here -->
+                    </section>
+                    <!-- city name section end -->
             </div>
 
     

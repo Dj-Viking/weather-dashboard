@@ -13,8 +13,13 @@
 
 
 //document variables
-//  form input textarea
+//  form input textarea element
 //  
+const formInputTextArea = document.querySelector("#city-name")
+//  button element
+const buttonel = document.querySelector("#submit-button")
+
+
 
 //submit button function
 //  submit button div creation
