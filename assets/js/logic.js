@@ -15,9 +15,9 @@
 //document variables
 //  form input textarea element
 //  
-const formInputTextArea = document.querySelector("#city-name")
+const formInputTextArea = document.querySelector("#city-name");
 //  button element
-const buttonel = document.querySelector("#submit-button")
+const buttonEl = document.querySelector("#submit-button");
 
 
 

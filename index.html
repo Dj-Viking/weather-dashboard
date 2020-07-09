@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Weather Dashboard</title>
-        <link rel="icon" type="image/png" href="./assets/images/favicon-image-copy.png">
+        <link rel="icon" type="image/png" href="./assets/images/weather-favicon.jpeg">
         <!-- google fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
         <!-- bootstrap -->
@@ -25,23 +25,23 @@
         </header>
         <!-- header start -->
         <!-- search city start -->
-        <section class="container row">
-            <div class="col-6">
+        <section class="container row mr-none pad-right-some col-12">
+            <div class="col-4">
                     <h2 class="card-title">
-                        Search for a city:
+                        Search for a city by name:
                     </h2>
                     <div class="row">
                         <form class="card form-textarea ml-2" autocomplete="off">
                             <input 
-                                name="cityname" 
+                                name="cityName" 
                                 id="city-name" 
                                 type="text" 
                                 autofocus="true" 
                                 class="form-input"
                             />
                         </form>
-                        <button type="submit" id="submit-button" class="btn button-colors mb-2 ml-2">
-                            search
+                        <button type="submit" id="submit-button" class="btn button-colors mb-4 mt-2 ml-2">
+                            Search<span class="oi oi-magnifying-glass ml-2"></span>
                         </button>
                         <div class="mt-2">
                             <!-- dynamically generate divs containing the city name entered -->
@@ -50,22 +50,94 @@
                         <!-- the div appended will be the text object from the promise returned from the api call to open weather -->
                     </div>
                     <!-- city name section start-->
-                    <section class="container">
+                    <section class="ml-2">
                         <!-- elements here are dynamically generated with the <a> tag that will create elements in the container to the right that contains the weather for the week in that city -->
                         <!-- info will be updated and appended each time the <a> is clicked the old material will clear and make room for the new stuff after clicking the <a> -->
-                        <div class="container row border-standard">
-                            <span>
+                        <div class="row border-standard width-60" id="city-list">
+                            <span class="slight-margin-allaround width-100" id="city-list-item">
+                                dynamically generated below as the city searched
+                            </span>
+                            <span class="slight-margin-allaround" id="city-list-item">
+                                dynamically generated below as the city searched
+                            </span>
+                            <span class="slight-margin-allaround" id="city-list-item">
                                 dynamically generated below as the city searched
                             </span>
                         </div>
                         <!-- append new city here -->
                     </section>
                     <!-- city name section end -->
-            </div>
-
-    
-
+                </div>
+                <!-- within this row start city info -->
+                <div class="col-8 border-standard">
+                    <h3 class="border-bottom-user" id="city-name-header">
+                        city name generated here current weather
+                        <span id="current-date" class="ml-2">7/09/2020</span>
+                    </h3>
+                    <p>
+                        Temperature: <span id="city-temperature">asdfadfs</span>
+                    </p>
+                    <p>
+                        Humidity: <span id="city-humidity">asdfadfs</span>
+                    </p>
+                    <p>
+                        Wind speed: <span id="city-wind-speed">asdfadfs</span>
+                    </p>
+                    <p>
+                        UV Index: <span id="city-UV">asdfadfs</span>
+                    </p>
+                    <!-- 5-day forcast below city info -->
+                    <div class="container mt-5">
+                        <h3>
+                            5-Day Forecast
+                        </h3>
+                        <div class="row" id="forecast-row">
+                            <div class="card bg-primary">
+                                <span class="card-title" id="day1-from-now">
+                                    <h4 class="text-light">
+                                        1 day
+                                    </h4>
+                                </span>
+                            </div>
+                            <div class="card bg-primary">
+                                <span class="card-title" id="day1-from-now">
+                                    <h4 class="text-light">
+                                        2 days
+                                    </h4>
+                                </span>
+                            </div>
+                            <div class="card bg-primary">
+                                <span class="card-title" id="day1-from-now">
+                                    <h4 class="text-light">
+                                        3 days
+                                    </h4>
+                                </span>
+                            </div>
+                            <div class="card bg-primary">
+                                <span class="card-title" id="day1-from-now">
+                                    <h4 class="text-light">
+                                        3 days
+                                    </h4>
+                                </span>
+                            </div>
+                            <div class="card bg-primary">
+                                <span class="card-title" id="day1-from-now">
+                                    <h4 class="text-light">
+                                        4 days
+                                    </h4>
+                                </span>
+                            </div>
+                            <div class="card bg-primary">
+                                <span class="card-title" id="day1-from-now">
+                                    <h4 class="text-light">
+                                        5 days
+                                    </h4>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </section>
-        <!-- search city end -->
+        <!-- search city section end -->
     </body>
 </html>

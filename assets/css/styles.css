@@ -44,14 +44,14 @@ padding: 2.5%;
 .form-input {
   width: 100%;
   padding: 3%;
-  margin: 5px 0;
+  margin: 0;
   font-size: 1.2rem;
   border: 2px solid var(--light-dark);
   border-radius: var(--border-radius);
 }
 
 .button-colors{
-    color: red;
+    color: rgb(255, 174, 0);
     background-color: var(--dark);
     transition: .5s;
 }
@@ -61,7 +61,32 @@ padding: 2.5%;
 }
 
 .border-standard {
-    border: 3px black solid;
+    border: 3px var(--light-dark) solid;
     border-radius: 10px;
+}
+
+.border-bottom-user {
+  border-bottom: 3px blue solid;
+  border-radius: var(--border-radius);
+  /* border-radius: 10px; */
+}
+
+.slight-margin-allaround{
+  margin: 5px;
+}
+
+.width-60{
+  width: 60%;
+}
+.width-100{
+  width: 100%;
+}
+
+.mr-none {
+  margin-right: 0;
+}
+
+.pad-right-some {
+  padding-right: 1%;
 }
 
