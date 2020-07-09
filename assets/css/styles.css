@@ -1,0 +1,62 @@
+:root{
+    
+    --primary: #ccdad1;
+    --secondary: #9caea9;
+    --tertiary: #788585;
+    --light-dark: #6f6866;
+    --dark: #38302e;
+    --border-radius: .3rem;
+}
+
+  *{
+      box-sizing: border-box;
+  }
+
+/* card */
+.card {
+    margin: 0 0 20px 0;
+    border-radius: var(--border-radius);
+  }
+
+.card-header {
+color: var(--primary);
+background-color: var(--dark);
+padding: 2.5%;
+border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
+}
+
+.card-body {
+padding: 2.5%;
+}
+
+/* form */
+.form-label,
+.form-input,
+.form-textarea {
+  display: block;
+}
+
+.form-label {
+  font-size: 1.1rem;
+  margin: 0 0 0 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 3%;
+  margin: 5px 0;
+  font-size: 1.2rem;
+  border: 2px solid var(--light-dark);
+  border-radius: var(--border-radius);
+}
+
+.button-colors{
+    color: red;
+    background-color: var(--dark);
+    transition: .5s;
+}
+
+.button-colors:hover {
+    color: lightblue;
+}
+

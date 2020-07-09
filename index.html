@@ -1,12 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Dashboard</title>
-    <link rel="icon" type="image/png" href="./assets/images/favicon-image-copy.png">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Weather Dashboard</title>
+        <link rel="icon" type="image/png" href="./assets/images/favicon-image-copy.png">
+        <!-- google fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+        <!-- open-iconic icons oi oi!!!-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+        <!-- my styles -->
+        <link rel="stylesheet" href="./assets/css/styles.css" />
+    </head>
+    <body>
+        <!-- header start -->
+        <header class="bg-dark">
+            <div class="container">
+                <h1 class="text-center text-light bg-dark">
+                    Weather Dashboard 
+                </h1>
+            </div>
+        </header>
+        <!-- header start -->
+        <!-- search city start -->
+        <section class="container row">
+            <div class="col-6">
+                    <h2 class="card-title">
+                        Search for a city:
+                    </h2>
+                    <div class="card row">
+                        <form class="form-textarea" autocomplete="off">
+                            <input 
+                                name="username" 
+                                id="username" 
+                                type="text" 
+                                autofocus="true" 
+                                class="form-input"
+                            />
+                        </form>
+                        <button type="submit" id="submit-button" class="btn button-colors">
+                            search
+                        </button>
+                        <!-- dynamically generate divs containing the city name entered -->
+                        <!-- the div created will be the text object from the promise returned from the api call to open weather -->
+                    </div>
+            </div>
+
     
-</body>
+
+        </section>
+        <!-- search city end -->
+    </body>
 </html>
