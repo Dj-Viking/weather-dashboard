@@ -81,14 +81,68 @@ function cityApiCall(searchedCity){
         console.log(response);
         console.log("city name fetched from server");
         console.log(response.name);
+
+        getCurrentWeatherIcon(response.weather[0].icon);
+        
+        // console.log(response.main.temp);
+        getCurrentTemp(response.main.temp);
+        getCurrentHumidity(response.main.humidity);
+        getCurrentWindSpeed(response.wind.speed);
+        getCurrentDescription(response.weather[0].description);
+
         
         var fetchedCityContainer = document.querySelector("#city-header");
         var fetchedCityEl = document.createElement("p");
+        fetchedCityEl.classList = "city-alt";
         fetchedCityEl.textContent = "(" + response.name + ")";
         fetchedCityContainer.appendChild(fetchedCityEl);
 
     })
     
+}
+
+function tempConvKtoF(valNum) {
+    valNum = parseFloat(valNum);
+    var newTemp = Math.floor(((valNum-273.15)*1.8)+32);
+    return newTemp;
+}
+  
+function tempConvKtoC(valNum) {
+    valNum = parseFloat(valNum);
+    var newTempC = Math.floor(valNum-273.15);
+    return newTempC;
+}
+
+function getCurrentTemp(weatherTempObject){
+    var currentTemp = document.querySelector("#current-temp");
+    var tempF = tempConvKtoF(weatherTempObject);
+    var tempC = tempConvKtoC(weatherTempObject);
+    currentTemp.textContent = tempF + "°F / " + tempC + "°C";
+}
+
+function getCurrentHumidity(weatherHumidObject){
+    var currentHumid = document.querySelector("#current-humid");
+    currentHumid.textContent = weatherHumidObject;
+}
+
+function getCurrentWindSpeed(weatherWindObject){
+    var currentWind = document.querySelector("#current-wind");
+    currentWind.textContent = weatherWindObject;
+}
+
+function getCurrentDescription(weatherDescriptionObject){
+    var currentDescription = document.querySelector("#current-description")
+    currentDescription.textContent = weatherDescriptionObject;
+}
+
+function getCurrentWeatherIcon(weatherIconObject){
+    
+    var weatherIconEl = document.createElement("img");
+    weatherIconEl.classList = "img-background ml-2 mt-2";
+    var weatherIconContainer = document.querySelector("#city-header");
+    weatherIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconObject + "@2x.png");
+    weatherIconContainer.appendChild(weatherIconEl);
+
 }
 
 //search city button function

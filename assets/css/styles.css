@@ -71,6 +71,7 @@ padding: 2.5%;
   /* border-radius: 10px; */
 }
 
+/* custom classes */
 .slight-margin-allaround{
   margin: 5px;
 }
@@ -92,4 +93,13 @@ padding: 2.5%;
 
 .hide-before-append {
   opacity: 0;
+}
+
+.city-alt {
+  font-size: 20px;
+}
+
+.img-background {
+  background-color: lightblue;
+  border-radius: 50%;
 }
