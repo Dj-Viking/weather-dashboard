@@ -79,13 +79,22 @@ function cityApiCall(searchedCity){
     })
     .then(function(response){
         console.log(response);
+        console.log("city name fetched from server");
+        console.log(response.name);
+        
+        var fetchedCityContainer = document.querySelector("#city-header");
+        var fetchedCityEl = document.createElement("p");
+        fetchedCityEl.textContent = "(" + response.name + ")";
+        fetchedCityContainer.appendChild(fetchedCityEl);
+
     })
+    
 }
 
 //search city button function
 //need to add in the api fetches here, some changes will be made to this later to append info
 //from the api call to the city list and the city info section
-function displaySearchedCity(){
+function displaySearchedCity(fetchedCity){
     //prevent the submit button default action of refreshing the page
     event.preventDefault();
     
