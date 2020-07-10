@@ -16,13 +16,14 @@
 //  form input textarea element
 //  
 //select textarea element
-const formInputTextArea = document.querySelector("#city-name");
+const formInputTextAreaEl = document.querySelector("#city-name");
 //  button element
 const buttonEl = document.querySelector("#search-button");
 //select the city list element we are prepending the city name to
 const citylistEl = document.querySelector("#city-list");
 
-//select element that will display current date 
+//select element for the 5 day forecast dates
+const forecastRowEl = document.querySelector("#forecast-row");
 
 
 //moment variables and objects
@@ -50,7 +51,7 @@ function updateCurrentDate(){
 //display the dates 1-5 days from current date
 
 function getFiveDayForcastDates(){
-
+    forecastRowEl.classList.remove("hide-before-append")
     for (i = 1; i < 6; i++){
         var startdate = moment().format("MM/DD/YYYY");
         var new_date = moment(startdate, "MM/DD/YYYY").add(i, 'days');
@@ -66,9 +67,6 @@ function getFiveDayForcastDates(){
     }
 }
 
-function displayDaysFromNow(){
-
-}
 
 //search city button function
 //need to add in the api fetches here, some changes will be made to this later to append info
@@ -86,7 +84,6 @@ function displaySearchedCity(){
     //get the value of the text field to place into the city span element
     let cityName = document.querySelector("#city-name").value;
     
-    
     //create element containing city name
     let cityEl = document.createElement("span");
     
@@ -102,14 +99,14 @@ function displaySearchedCity(){
     
     //prepend the cityEl into the citylistEl
     citylistEl.prepend(cityEl);
-    clearInputField(cityName);
+    clearInputField();
     updateCurrentDate();
     getFiveDayForcastDates();
     //updateTime.classList.remove("hide-before-append");
 
 }
 
-function clearInputField(text){
+function clearInputField(){
     let inputForm = document.querySelector("#input-form");
     //console.log(text);
     inputForm[0].value = "";
