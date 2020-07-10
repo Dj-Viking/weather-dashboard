@@ -25,12 +25,14 @@ const citylistEl = document.querySelector("#city-list");
 //select element for the 5 day forecast dates
 const forecastRowEl = document.querySelector("#forecast-row");
 
+var apiUrl = "https://api.openweathermap.org/data/2.5/weather?APPID=40f2f21382e4c53e0bf3d5733b6759dc&q=";
+
 
 //moment variables and objects
-var nowDate = moment().format('MM/DD/YYYY');
 function updateCurrentDate(){
-    let currentDateEl = document.querySelector("#current-date")
-    currentDateEl.innerText = nowDate;
+    var nowDate = moment().format('MM/DD/YYYY');
+    const currentDateEl = document.querySelector("#current-date");
+    currentDateEl.textContent = nowDate;
 }
 //display current time in that city??
 //for now will have time function here, maybe try to get local time of city?
@@ -50,7 +52,7 @@ function updateCurrentDate(){
 
 //display the dates 1-5 days from current date
 
-function getFiveDayForcastDates(){
+function getFiveDayForecastDates(){
     forecastRowEl.classList.remove("hide-before-append")
     for (i = 1; i < 6; i++){
         var startdate = moment().format("MM/DD/YYYY");
@@ -67,6 +69,18 @@ function getFiveDayForcastDates(){
     }
 }
 
+function cityApiCall(searchedCity){
+    fetch(
+        apiUrl + searchedCity
+    )
+    .then(function(response){
+        console.log(response);
+        return response.json();
+    })
+    .then(function(response){
+        console.log(response);
+    })
+}
 
 //search city button function
 //need to add in the api fetches here, some changes will be made to this later to append info
@@ -78,30 +92,34 @@ function displaySearchedCity(){
     //check button was clicked
     console.log("search button was clicked")
     
+    let cityHeader = document.querySelector("#city-header");
     //remove the hide class before we append
     citylistEl.classList.remove("hide-before-append");
+    cityHeader.classList.remove("hide-before-append");
     
     //get the value of the text field to place into the city span element
     let cityName = document.querySelector("#city-name").value;
     
     //create element containing city name
-    let cityEl = document.createElement("span");
+    let citySearchEl = document.createElement("span");
     
     //set class list for city name container
-    cityEl.classList = "slight-margin-allaround width-100 border-bottom-user"
+    citySearchEl.classList = "slight-margin-allaround width-100 border-bottom-user"
     
     //check we are getting it in the console
     console.log("here is the city name")
     console.log(cityName);
 
-    //put the city name inside the cityEl span element
-    cityEl.innerText = cityName;
+    //put the city name inside the cityEl span element and the city-name-header element
+    updateCurrentDate();
+    cityHeader.innerText = cityName;    
+    citySearchEl.innerText = cityName;
     
     //prepend the cityEl into the citylistEl
-    citylistEl.prepend(cityEl);
+    citylistEl.prepend(citySearchEl);
     clearInputField();
-    updateCurrentDate();
-    getFiveDayForcastDates();
+    getFiveDayForecastDates();
+    cityApiCall(cityName);
     //updateTime.classList.remove("hide-before-append");
 
 }
