@@ -24,21 +24,34 @@ const citylistEl = document.querySelector("#city-list");
 
 //submit button function
 function displaySearchedCity(){
+    //prevent the submit button default action of refreshing the page
     event.preventDefault();
+    
     //check button was clicked
     console.log("search button was clicked")
+    
     //remove the hide class before we append
     citylistEl.classList.remove("hide-before-append");
+    
     //get the value of the text field to place into the city span element
     let cityName = document.querySelector("#city-name").value;
     cityName.value = "";
+    
     //create element containing city name
     let cityEl = document.createElement("span");
+    
     //set class list for city name container
     cityEl.classList = "slight-margin-allaround width-100 border-bottom-user"
+    
     //check we are getting it in the console
     console.log("here is the city name")
     console.log(cityName);
+
+    //put the city name inside the cityEl span element
+    cityEl.innerText = cityName;
+
+    //prepend the cityEl into the citylistEl
+    citylistEl.prepend(cityEl);
 }
 
 //submit button event listener
