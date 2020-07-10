@@ -40,7 +40,7 @@
                                 class="form-input"
                             />
                         </form>
-                        <button type="submit" id="submit-button" class="btn button-colors mb-4 mt-2 ml-2">
+                        <button type="submit" id="search-button" class="btn button-colors mb-4 mt-2 ml-2">
                             Search<span class="oi oi-magnifying-glass ml-2"></span>
                         </button>
                         <div class="mt-2">
@@ -53,8 +53,8 @@
                     <section class="ml-2">
                         <!-- elements here are dynamically generated with the <a> tag that will create elements in the container to the right that contains the weather for the week in that city -->
                         <!-- info will be updated and appended each time the <a> is clicked the old material will clear and make room for the new stuff after clicking the <a> -->
-                        <div class="row border-standard width-60" id="city-list">
-                            <span class="slight-margin-allaround width-100" id="city-list-item">
+                        <div class="row border-standard width-100 mr-none hide-before-append" id="city-list">
+                            <!-- <span class="slight-margin-allaround width-100 border-bottom-user" id="city-list-item">
                                 dynamically generated below as the city searched
                             </span>
                             <span class="slight-margin-allaround" id="city-list-item">
@@ -62,7 +62,7 @@
                             </span>
                             <span class="slight-margin-allaround" id="city-list-item">
                                 dynamically generated below as the city searched
-                            </span>
+                            </span> -->
                         </div>
                         <!-- append new city here -->
                     </section>
@@ -139,5 +139,6 @@
                 </div>
         </section>
         <!-- search city section end -->
+        <script src="assets/js/logic.js"></script>
     </body>
 </html>

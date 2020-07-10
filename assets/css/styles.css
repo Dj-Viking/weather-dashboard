@@ -90,3 +90,6 @@ padding: 2.5%;
   padding-right: 1%;
 }
 
+.hide-before-append {
+  opacity: 0;
+}
