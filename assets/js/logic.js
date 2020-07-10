@@ -23,12 +23,52 @@ const buttonEl = document.querySelector("#search-button");
 const citylistEl = document.querySelector("#city-list");
 
 //select element that will display current date 
-const currentDateEl = document.querySelector("#current-date")
+
 
 //moment variables and objects
 var nowDate = moment().format('MM/DD/YYYY');
+function updateCurrentDate(){
+    let currentDateEl = document.querySelector("#current-date")
+    currentDateEl.innerText = nowDate;
+}
 //display current time in that city??
+//for now will have time function here, maybe try to get local time of city?
+// var updateTime = document.querySelector("#current-time")
+// function time() {
+//     var d = new Date();
+//     var s = ('0'+ d.getSeconds()).slice(-2);
+//     var m = ('0'+ d.getMinutes()).slice(-2);
+//     var h = d.getHours(); 
+//     if(h >= 12){
+//         updateTime.textContent = h + ":" + m + ":" + s + " pm";
+//     } else if (h <= 11){
+//         updateTime.textContent = h + ":" + m + ":" + s + " am";
+//     }
+// }
+//   setInterval(time, 1000);
 
+//display the dates 1-5 days from current date
+
+function getFiveDayForcastDates(){
+
+    for (i = 1; i < 6; i++){
+        var startdate = moment().format("MM/DD/YYYY");
+        var new_date = moment(startdate, "MM/DD/YYYY").add(i, 'days');
+        var month = new_date.format('MM');
+        var day = new_date.format('DD');
+        var year = new_date.format('YYYY');
+        var daySelectorEl = document.querySelector("#day-" + i + "-from-now")
+        var daySelectorElDate = month + '/' + day + '/' + year
+
+        //checking if this works, YAY!!
+        //console.log(i);
+        daySelectorEl.innerHTML = "<h6 class='text-light'>" + daySelectorElDate + "</h6>";
+    }
+}
+
+function displayDaysFromNow(){
+
+}
 
 //search city button function
 //need to add in the api fetches here, some changes will be made to this later to append info
@@ -63,6 +103,10 @@ function displaySearchedCity(){
     //prepend the cityEl into the citylistEl
     citylistEl.prepend(cityEl);
     clearInputField(cityName);
+    updateCurrentDate();
+    getFiveDayForcastDates();
+    //updateTime.classList.remove("hide-before-append");
+
 }
 
 function clearInputField(text){
