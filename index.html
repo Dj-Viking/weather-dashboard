@@ -31,7 +31,7 @@
                         Search for a city by name:
                     </h2>
                     <div class="row">
-                        <form class="card form-textarea ml-2" autocomplete="off">
+                        <form class="card form-textarea ml-2" autocomplete="off" id="input-form">
                             <input 
                                 name="cityName" 
                                 id="city-name" 
@@ -71,8 +71,8 @@
                 <!-- within this row start city info -->
                 <div class="col-8 border-standard">
                     <h3 class="border-bottom-user" id="city-name-header">
-                        city name generated here current weather
-                        <span id="current-date" class="ml-2">7/09/2020</span>
+                        Zagreb, HR
+                        <span id="current-date" class="ml-2"></span>
                     </h3>
                     <p>
                         Temperature: <span id="city-temperature">asdfadfs</span>
@@ -139,6 +139,8 @@
                 </div>
         </section>
         <!-- search city section end -->
+        <!-- loading moment.js before the assets js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
         <script src="assets/js/logic.js"></script>
     </body>
 </html>

@@ -22,7 +22,17 @@ const buttonEl = document.querySelector("#search-button");
 //select the city list element we are prepending the city name to
 const citylistEl = document.querySelector("#city-list");
 
-//submit button function
+//select element that will display current date 
+const currentDateEl = document.querySelector("#current-date")
+
+//moment variables and objects
+var nowDate = moment().format('MM/DD/YYYY');
+//display current time in that city??
+
+
+//search city button function
+//need to add in the api fetches here, some changes will be made to this later to append info
+//from the api call to the city list and the city info section
 function displaySearchedCity(){
     //prevent the submit button default action of refreshing the page
     event.preventDefault();
@@ -35,7 +45,7 @@ function displaySearchedCity(){
     
     //get the value of the text field to place into the city span element
     let cityName = document.querySelector("#city-name").value;
-    cityName.value = "";
+    
     
     //create element containing city name
     let cityEl = document.createElement("span");
@@ -49,9 +59,18 @@ function displaySearchedCity(){
 
     //put the city name inside the cityEl span element
     cityEl.innerText = cityName;
-
+    
     //prepend the cityEl into the citylistEl
     citylistEl.prepend(cityEl);
+    clearInputField(cityName);
+}
+
+function clearInputField(text){
+    let inputForm = document.querySelector("#input-form");
+    //console.log(text);
+    inputForm[0].value = "";
+    //console.log("cleared the input field")
+    //console.log(inputForm[0].value);
 }
 
 //submit button event listener
