@@ -475,7 +475,7 @@ function getCurrentWeatherIcon(weatherIconObject){
 //DONE need to add in the api fetches here, some changes will be made to this later to append info
 //DONE  *from the api call to the city list and the city info section
 
-function displaySearchedCity(event){
+function displaySearchedCity(){
 
 
     //prevent the submit button default action of refreshing the page
