@@ -8,9 +8,15 @@
 // WHEN I view future weather conditions for that city
 // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
 // WHEN I click on a city in the search history
+//  **making the <a> tag have the on click function inside to invoke the api call again just like the search
 // THEN I am again presented with current and future conditions for that city
 
 //DONE  have the forecast unhide after selecting the city and updating to the document
+
+//????? HOW TO MAKE TEXT FIELD NOT REFRESH PAGE WHEN I HIT ENTER AFTER TYPING IN A CITY NAME
+//????? SO THAT THE TEXT FIELD CAN ACT LIKE A SUBMIT BUTTON TOO??
+//????? HOW TO TRACK HOW MANY API CALLS I HAVE DONE AND STORE INTO STORAGE MAYBE??
+//????? HOW TO HIDE API KEY AND STILL USE THE APP NORMALLY??
 
 //document variables
 //  form input textarea element
@@ -91,8 +97,17 @@ function cityCurrentUVIndexApiCall(lat, lon){
         return response.json();
     })
     .then(function(response2){
-        console.log("response for the UV index object or value")
-        console.log(response2)
+        console.log("response for the current day UV index object or value");
+        console.log(response2);
+        //get the UV index number
+        var currentUVnum = response2.value;
+
+        //select element to put the text in
+        var currentUVnumEl = document.querySelector("#day-current-UV");
+        //set the text in the element
+        currentUVnumEl.textContent = currentUVnum;
+        //if statement determining the index value to change the color of the background of the text
+        //and change the text color to match the background color
     });
 }
 
@@ -290,9 +305,13 @@ function cityFiveDayApiCall(searchedCity){
         descDay5El.textContent = descDay5;
 
         //day1 UV Index
+
         //day2 UV Index
+        
         //day3 UV Index
+        
         //day4 UV Index
+        
         //day5 UV Index
         
         
@@ -308,6 +327,7 @@ function cityCurrentApiCall(searchedCity){
         return response.json();
     })
     .then(function(response2){
+        console.log("city name object fetched from server")
         console.log(response2);
         console.log("city name fetched from server");
         console.log(response2.name);
@@ -317,6 +337,12 @@ function cityCurrentApiCall(searchedCity){
         getCurrentHumidity(response2.main.humidity);
         getCurrentWindSpeed(response2.wind.speed);
         getCurrentDescription(response2.weather[0].description);
+
+        //get the lat and lon values from the response place as arguments for this function
+        //let lat = response2.coord.lat;
+        //let lon = response2.coord.lon;
+        cityCurrentUVIndexApiCall(response2.coord.lat, response2.coord.lon);
+        
 
         
         var fetchedCityContainer = document.querySelector("#city-header");
@@ -376,7 +402,7 @@ function getCurrentWeatherIcon(weatherIconObject){
 //search city button function
 //need to add in the api fetches here, some changes will be made to this later to append info
 //from the api call to the city list and the city info section
-function displaySearchedCity(fetchedCity){
+function displaySearchedCity(){
     //prevent the submit button default action of refreshing the page
     event.preventDefault();
     
