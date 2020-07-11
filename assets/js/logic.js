@@ -3,10 +3,10 @@
 //DONE THEN I am presented with current and future conditions for that city and that city is added to the search history
 //DONE WHEN I view current weather conditions for that city
 //DONE THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-//?? WHEN I view the UV index
-// THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
+//DONE WHEN I view the UV index
+//DONE THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
+//DONE WHEN I view future weather conditions for that city
+//DONE THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
 // WHEN I click on a city in the search history
 //  **making the <a> tag have the on click function inside to invoke the api call again just like the search
 // THEN I am again presented with current and future conditions for that city
@@ -107,25 +107,56 @@ function cityCurrentUVIndexApiCall(lat, lon){
         //set the text in the element
         currentUVnumEl.textContent = currentUVnum;
         //if statement determining the index value to change the color of the background of the text
-        //and change the text color to match the background color
+        //and change the text color to match the background color to the UV index standard 
+        if (currentUVnum === 0 || currentUVnum < 1){
+            currentUVnumEl.classList = "low";
+        } else if (currentUVnum >= 1 && currentUVnumEl <= 2){
+            currentUVnumEl.classList = "low";
+        } else if(currentUVnum >= 3 && currentUVnum <= 5) {
+            currentUVnumEl.classList = "moderate";
+        } else if(currentUVnum >= 6 && currentUVnum <= 7) {
+            currentUVnumEl.classList = "high";
+        } else if(currentUVnum >= 8 && currentUVnum < 10) {
+            currentUVnumEl.classList = "very high";
+        } else if(currentUVnum >= 11) {
+            currentUVnumEl.classList = "extreme";
+        }
     });
 }
 
 //place this inside the main five day forecast function and 
 //
-function cityFiveDayUVIndexApiCall(lat, lon){
-    fetch(
-        "https://api.openweathermap.org/data/2.5/uvi?APPID=40f2f21382e4c53e0bf3d5733b6759dc&lat=" + lat
-         + "&lon=" + lon
-    )
-    .then(function(response){
-        return response.json();
-    })
-    .then(function(response2){
-        console.log("response for the five day forecast UV index object or value")
-        console.log(response2);
-    });
-}
+// function cityFiveDayUVIndexApiCall(lat, lon){
+//     fetch(
+//         "https://api.openweathermap.org/data/2.5/uvi?APPID=40f2f21382e4c53e0bf3d5733b6759dc&lat=" + lat
+//          + "&lon=" + lon
+//     )
+//     .then(function(response){
+//         return response.json();
+//     })
+//     .then(function(response2){
+//         console.log("response for the five day forecast UV index object or value")
+//         console.log(response2);
+
+    //     //for loop to iterate through each date based on the 12pm index value
+    //     for (let i = 1; i < 6; i++){
+    //         //get the value of the UV index from the response
+    //        // var uvDayNum = response2.
+    //         //select element we are putting the text inside
+    //         var uvDayEl = document.querySelector("#day-" + i + "UV");
+
+    //     }
+    //     //day1 UV Index
+
+    //     //day2 UV Index
+        
+    //     //day3 UV Index
+        
+    //     //day4 UV Index
+        
+    //     //day5 UV Index
+    // });
+// }
 
 function cityFiveDayApiCall(searchedCity){
     fetch(
@@ -137,36 +168,40 @@ function cityFiveDayApiCall(searchedCity){
     .then(function(response2){
         console.log("fetched 5 day forecast of city searched");
         console.log(response2);//get the 12pm midday hour weather indexes
-        //day1 response2.list[2]
-        //day2 response2.list[10]
-        //day3 response2.list[18]
-        //day4 response2.list[26]
-        //day5 response2.list[34]
+        //day1 response2.list[6]
+        //day2 response2.list[14]
+        //day3 response2.list[22]
+        //day4 response2.list[30]
+        //day5 response2.list[38]
         
         //DONE
         //get day1 icon
-        var day1IconId = response2.list[2].weather[0].icon;
+        var day1IconId = response2.list[6].weather[0].icon;
         iconDay1El = document.querySelector("#day1-img");
         iconDay1El.setAttribute("src", "http://openweathermap.org/img/wn/" + day1IconId + "@2x.png");
+        
         //get day2 icon
-        var day2IconId = response2.list[10].weather[0].icon;
+        var day2IconId = response2.list[14].weather[0].icon;
         iconDay2El = document.querySelector("#day2-img")
         iconDay2El.setAttribute("src", "http://openweathermap.org/img/wn/" + day2IconId + "@2x.png");
+        
         //get day3 icon
-        var day3IconId = response2.list[18].weather[0].icon;
+        var day3IconId = response2.list[22].weather[0].icon;
         iconDay3El = document.querySelector("#day3-img")
         iconDay3El.setAttribute("src", "http://openweathermap.org/img/wn/" + day3IconId + "@2x.png");
+        
         //get day4 icon
-        var day4IconId = response2.list[26].weather[0].icon;
+        var day4IconId = response2.list[30].weather[0].icon;
         iconDay4El = document.querySelector("#day4-img")
         iconDay4El.setAttribute("src", "http://openweathermap.org/img/wn/" + day4IconId + "@2x.png");
+        
         //get day5 icon
-        var day5IconId = response2.list[34].weather[0].icon;
+        var day5IconId = response2.list[38].weather[0].icon;
         iconDay5El = document.querySelector("#day5-img")
         iconDay5El.setAttribute("src", "http://openweathermap.org/img/wn/" + day5IconId + "@2x.png");
-
+        
         //get temp day1 CONVERT UNITS!!!
-        var tempDay1 = response2.list[2].main.temp;
+        var tempDay1 = response2.list[6].main.temp;
         //target the element we are placing in
         var tempDay1El = document.querySelector("#day-one-temp");
         //convert units
@@ -174,8 +209,9 @@ function cityFiveDayApiCall(searchedCity){
         var tempCOne = tempConvKtoC(tempDay1);
         //set textContent
         tempDay1El.textContent = tempFOne + "°F / " + tempCOne + "°C";
+
         //get temp day2
-        var tempDay2 = response2.list[10].main.temp;
+        var tempDay2 = response2.list[14].main.temp;
         //target the element we are placing in
         tempDay2El = document.querySelector("#day-two-temp");
          //convert units
@@ -183,8 +219,9 @@ function cityFiveDayApiCall(searchedCity){
          var tempCTwo = tempConvKtoC(tempDay2);
          //set textContent
          tempDay2El.textContent = tempFTwo + "°F / " + tempCTwo + "°C";
+
         //get temp day3
-        var tempDay3 = response2.list[18].main.temp;
+        var tempDay3 = response2.list[22].main.temp;
         //target the element we are placing in
         tempDay3El = document.querySelector("#day-three-temp");
          //convert units
@@ -192,8 +229,9 @@ function cityFiveDayApiCall(searchedCity){
          var tempCThree = tempConvKtoC(tempDay3);
          //set textContent
          tempDay3El.textContent = tempFThree + "°F / " + tempCThree + "°C";
+
         //get temp day4
-        var tempDay4 = response2.list[26].main.temp;
+        var tempDay4 = response2.list[30].main.temp;
         //target the element we are placing in
         tempDay4El = document.querySelector("#day-four-temp");
          //convert units
@@ -201,8 +239,9 @@ function cityFiveDayApiCall(searchedCity){
          var tempCFour = tempConvKtoC(tempDay4);
          //set textContent
          tempDay4El.textContent = tempFFour + "°F / " + tempCFour + "°C";
+
         //get temp day5
-        var tempDay5 = response2.list[34].main.temp;
+        var tempDay5 = response2.list[38].main.temp;
         //target the element we are placing in
         tempDay5El = document.querySelector("#day-five-temp");
          //convert units
@@ -212,109 +251,109 @@ function cityFiveDayApiCall(searchedCity){
          tempDay5El.textContent = tempFFive + "°F / " + tempCFive + "°C";
 
         //get humidity day1
-        var humidDay1 = response2.list[2].main.humidity;
+        var humidDay1 = response2.list[6].main.humidity;
         //target the element we are placing in
         const humidDay1El = document.querySelector("#day-one-humid");
         //set textContent for each one
         humidDay1El.textContent = humidDay1;
+
         //get humidity day2
-        var humidDay2 = response2.list[2].main.humidity;
+        var humidDay2 = response2.list[14].main.humidity;
         //target the element we are placing in
         const humidDay2El = document.querySelector("#day-two-humid");
         //set textContent for each one
         humidDay2El.textContent = humidDay2;
+
         //get humidity day3
-        var humidDay3 = response2.list[2].main.humidity;
+        var humidDay3 = response2.list[22].main.humidity;
         //target the element we are placing in
         const humidDay3El = document.querySelector("#day-three-humid");
         //set textContent for each one
         humidDay3El.textContent = humidDay3;
+
         //get humidity day4
-        var humidDay4 = response2.list[2].main.humidity;
+        var humidDay4 = response2.list[30].main.humidity;
         //target the element we are placing in
         const humidDay4El = document.querySelector("#day-four-humid");
         //set textContent for each one
         humidDay4El.textContent = humidDay4;
+
         //get humidity day5
-        var humidDay5 = response2.list[2].main.humidity;
+        var humidDay5 = response2.list[38].main.humidity;
         //target the element we are placing in
         const humidDay5El = document.querySelector("#day-five-humid");
         //set textContent for each one
         humidDay5El.textContent = humidDay5;
 
         //get windspeed day1
-        var windDay1 = response2.list[2].wind.speed;
+        var windDay1 = response2.list[6].wind.speed;
         //target the element we are placing in
         const windDay1El = document.querySelector("#day-one-wind");
         //set textContent for each one
-        windDay1El.textContent = windDay1;
+        windDay1El.textContent = windDay1 + " mph";
+
         //get windspeed day2
-        var windDay2 = response2.list[10].wind.speed;
+        var windDay2 = response2.list[14].wind.speed;
         //target the element we are placing in
         const windDay2El = document.querySelector("#day-two-wind");
         //set textContent for each one
-        windDay2El.textContent = windDay2;
+        windDay2El.textContent = windDay2 + " mph";
+
         //get windspeed day3
-        var windDay3 = response2.list[18].wind.speed;
+        var windDay3 = response2.list[22].wind.speed;
         //target the element we are placing in
         const windDay3El = document.querySelector("#day-three-wind");
         //set textContent for each one
-        windDay3El.textContent = windDay3;
+        windDay3El.textContent = windDay3 + " mph";
+
         //get windspeed day4
-        var windDay4 = response2.list[26].wind.speed;
+        var windDay4 = response2.list[30].wind.speed;
         //target the element we are placing in
         const windDay4El = document.querySelector("#day-four-wind");
         //set textContent for each one
-        windDay4El.textContent = windDay4;
+        windDay4El.textContent = windDay4 + " mph";
+
         //get windspeed day5
-        var windDay5 = response2.list[34].wind.speed;
+        var windDay5 = response2.list[38].wind.speed;
         //target the element we are placing in
         const windDay5El = document.querySelector("#day-five-wind");
         //set textContent for each one
-        windDay5El.textContent = windDay5;
+        windDay5El.textContent = windDay5 + " mph";
 
         //get description day1
-        var descDay1 = response2.list[2].weather[0].description;
+        var descDay1 = response2.list[6].weather[0].description;
         //target the element we are placing in
         const descDay1El = document.querySelector("#day-one-description");
         //set textContent for each one
         descDay1El.textContent = descDay1;
+
         //get description day2
-        var descDay2 = response2.list[10].weather[0].description;
+        var descDay2 = response2.list[14].weather[0].description;
         //target the element we are placing in
         const descDay2El = document.querySelector("#day-two-description");
         //set textContent for each one
         descDay2El.textContent = descDay2;
+
         //get description day3
-        var descDay3 = response2.list[18].weather[0].description;
+        var descDay3 = response2.list[22].weather[0].description;
         //target the element we are placing in
         const descDay3El = document.querySelector("#day-three-description");
         //set textContent for each one
         descDay3El.textContent = descDay3;
+        
         //get description day4
-        var descDay4 = response2.list[26].weather[0].description;
+        var descDay4 = response2.list[30].weather[0].description;
         //target the element we are placing in
         const descDay4El = document.querySelector("#day-four-description");
         //set textContent for each one
         descDay4El.textContent = descDay4;
+
         //get description day5
-        var descDay5 = response2.list[34].weather[0].description;
+        var descDay5 = response2.list[38].weather[0].description;
         //target the element we are placing in
         const descDay5El = document.querySelector("#day-five-description");
         //set textContent for each one
         descDay5El.textContent = descDay5;
-
-        //day1 UV Index
-
-        //day2 UV Index
-        
-        //day3 UV Index
-        
-        //day4 UV Index
-        
-        //day5 UV Index
-        
-        
     });
 }
 
@@ -348,7 +387,7 @@ function cityCurrentApiCall(searchedCity){
         var fetchedCityContainer = document.querySelector("#city-header");
         var fetchedCityEl = document.createElement("p");
         fetchedCityEl.classList = "city-alt";
-        fetchedCityEl.textContent = "(" + response2.name + ")";
+        fetchedCityEl.textContent = "(" + response2.name + ", " + response2.sys.country + ")";
         fetchedCityContainer.appendChild(fetchedCityEl);
 
     });
@@ -381,7 +420,7 @@ function getCurrentHumidity(weatherHumidObject){
 
 function getCurrentWindSpeed(weatherWindObject){
     var currentWind = document.querySelector("#current-wind");
-    currentWind.textContent = weatherWindObject;
+    currentWind.textContent = weatherWindObject + " mph";
 }
 
 function getCurrentDescription(weatherDescriptionObject){
@@ -452,6 +491,13 @@ function clearInputField(){
 
 //submit button event listener
 buttonEl.addEventListener("click", displaySearchedCity);
+
+const inputFormEl = document.querySelector("#input-form");
+//fixing the submit default of the input form which refreshes the page
+inputFormEl.addEventListener("submit", function(event){
+    event.preventDefault();
+    displaySearchedCity();
+});
 
 
 
