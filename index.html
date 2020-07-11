@@ -38,6 +38,7 @@
                                 type="text" 
                                 autofocus="true" 
                                 class="form-input"
+                                placeholder="Enter a city name here"
                             />
                         </form>
                         <button type="submit" id="search-button" class="btn button-colors mb-4 mt-2 ml-2">
@@ -92,42 +93,107 @@
                     <!-- 5-day forcast below city info -->
                     <div class="container mt-5">
                         <h3>
-                            5-Day Forecast
+                            5-Day Forecast (Projected by 12pm)
                         </h3>
                         <div class="row hide-before-append width-100" id="forecast-row">
                             <div class="card bg-primary">
                                 <span class="card-title" id="day-1-from-now" data-day="1">
-                                    <!-- <h4 class="text-light">
-                                         1 day from now
-                                    </h4> -->
+                                    <h6 id="forecast-1-date">
+                                         
+                                    </h6>
+                                    <img id="day1-img" class="img-background">
+                                    <p id="temp-container1" class="text-light slight-margin-allaround">
+                                        Temperature: <span id="day-one-temp"></span>
+                                    </p>
+                                    <p id="humid-container1" class="text-light slight-margin-allaround">
+                                        Humidity: <span id="day-one-humid"></span>
+                                    </p>
+                                    <p id="wind-container1" class="text-light slight-margin-allaround">
+                                        Wind speed: <span id="day-one-wind"></span>
+                                    </p>
+                                    <p id="description-container1" class="text-light slight-margin-allaround">
+                                        Description: <span id="day-one-description"></span>
+                                    </p>
                                 </span>
                             </div>
                             <div class="card bg-primary">
                                 <span class="card-title" id="day-2-from-now" data-day="2">
-                                   <!-- <h4 class="text-light">
-                                        2 days from now
-                                    </h4> -->
+                                    <h6 id="forecast-2-date">
+                                         
+                                    </h6>
+                                    <img id="day2-img" class="img-background">
+                                    <p id="temp-container2" class="text-light slight-margin-allaround">
+                                        Temperature: <span id="day-two-temp"></span>
+                                    </p>
+                                    <p id="humid-container2" class="text-light slight-margin-allaround">
+                                        Humidity: <span id="day-two-humid"></span>
+                                    </p>
+                                    <p id="wind-container2" class="text-light slight-margin-allaround">
+                                        Wind speed: <span id="day-two-wind"></span>
+                                    </p>
+                                    <p id="description-container2" class="text-light slight-margin-allaround">
+                                        Description: <span id="day-two-description"></span>
+                                    </p>
                                 </span>
                             </div>
                             <div class="card bg-primary">
                                 <span class="card-title" id="day-3-from-now" data-day="3">
-                                   <!-- <h4 class="text-light">
-                                         3 days from now
-                                    </h4> -->
+                                    <h6 id="forecast-3-date">
+                                         
+                                    </h6>
+                                    <img id="day3-img" class="img-background">
+                                    <p id="temp-container3" class="text-light slight-margin-allaround">
+                                        Temperature: <span id="day-three-temp"></span>
+                                    </p>
+                                    <p id="humid-container3" class="text-light slight-margin-allaround">
+                                        Humidity: <span id="day-three-humid"></span>
+                                    </p>
+                                    <p id="wind-container3" class="text-light slight-margin-allaround">
+                                        Wind speed: <span id="day-three-wind"></span>
+                                    </p>
+                                    <p id="description-container3" class="text-light slight-margin-allaround">
+                                        Description: <span id="day-three-description"></span>
+                                    </p>
                                 </span>
                             </div>
                             <div class="card bg-primary">
                                 <span class="card-title" id="day-4-from-now" data-day="4">
-                                   <!-- <h4 class="text-light">
-                                         4 days from now
-                                    </h4> -->
+                                    <h6 id="forecast-4-date">
+                                         
+                                    </h6>
+                                    <img id="day4-img" class="img-background">
+                                    <p id="temp-container4" class="text-light slight-margin-allaround">
+                                        Temperature: <span id="day-four-temp"></span>
+                                    </p>
+                                    <p id="humid-container4" class="text-light slight-margin-allaround">
+                                        Humidity: <span id="day-four-humid"></span>
+                                    </p>
+                                    <p id="wind-container4" class="text-light slight-margin-allaround">
+                                        Wind speed: <span id="day-four-wind"></span>
+                                    </p>
+                                    <p id="description-container4" class="text-light slight-margin-allaround">
+                                        Description: <span id="day-four-description"></span>
+                                    </p>
                                 </span>
                             </div>
                             <div class="card bg-primary">
                                 <span class="card-title" id="day-5-from-now" data-day="5">
-                                    <!-- <h4 class="text-light">
-                                         5 days from now
-                                    </h4> -->
+                                    <h6 id="forecast-5-date">
+                                         
+                                    </h6>
+                                    <img id="day5-img" class="img-background">
+                                    <p id="temp-container5" class="text-light slight-margin-allaround">
+                                        Temperature: <span id="day-five-temp"></span>
+                                    </p>
+                                    <p id="humid-container5" class="text-light slight-margin-allaround">
+                                        Humidity: <span id="day-five-humid"></span>
+                                    </p>
+                                    <p id="wind-container5" class="text-light slight-margin-allaround">
+                                        Wind speed: <span id="day-five-wind"></span>
+                                    </p>
+                                    <p id="description-container5" class="text-light slight-margin-allaround">
+                                        Description: <span id="day-five-description"></span>
+                                    </p>
                                 </span>
                             </div>
                         </div>
