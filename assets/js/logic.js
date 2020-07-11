@@ -10,7 +10,7 @@
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 
-// have the forecast unhide after selecting the city and updating to the document
+//DONE  have the forecast unhide after selecting the city and updating to the document
 
 //document variables
 //  form input textarea element
