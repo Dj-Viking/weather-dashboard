@@ -13,8 +13,8 @@
 
 //DONE  have the forecast unhide after selecting the city and updating to the document
 
-//????? HOW TO MAKE TEXT FIELD NOT REFRESH PAGE WHEN I HIT ENTER AFTER TYPING IN A CITY NAME
-//????? SO THAT THE TEXT FIELD CAN ACT LIKE A SUBMIT BUTTON TOO??
+//DONE HOW TO MAKE TEXT FIELD NOT REFRESH PAGE WHEN I HIT ENTER AFTER TYPING IN A CITY NAME
+//DONE SO THAT THE TEXT FIELD CAN ACT LIKE A SUBMIT BUTTON TOO??
 //????? HOW TO TRACK HOW MANY API CALLS I HAVE DONE AND STORE INTO STORAGE MAYBE??
 //????? HOW TO HIDE API KEY AND STILL USE THE APP NORMALLY??
 
@@ -38,6 +38,33 @@ const apiFiveDayUrl = "https://api.openweathermap.org/data/2.5/forecast?APPID=40
 //const apiUVIndexUrl = "https://api.openweathermap.org/data/2.5/uvi?APPID=40f2f21382e4c53e0bf3d5733b6759dc&lat=&lon=";
 
 const apiFiveDayUVIndexUrl = "";
+
+//initializing a city array for use with local storage
+let cityArray = []
+
+//make saveCity function
+function saveCity(){
+    //save everytime user searches a city
+    //so place this function where
+    localStorage.setItem("cityArray", JSON.stringify(cityArray));
+    console.log("city array got updated in storage!")
+}
+//push the city string name into a temparray that gets pushed into localStorage
+//have to check notes again for the storage...
+
+//make loadCity function
+//on the clicked <a> element that has the city name inside execute load city
+
+function loadCity(){
+    console.log("loading clicked city from the past searches list")
+    cityArray = JSON.parse(localStorage.getItem("cityArray"));
+}
+//check if the array in localStorage is null or falsey set it to empty array
+//else make for loop for each string inside the storage array
+//place each string inside the element that will prepend into the city-list element
+
+
+
 
 
 //moment variables and objects
@@ -69,7 +96,6 @@ function getFiveDayForecastDates(){
     for (i = 1; i < 6; i++){
         const futureForecastDateEl = document.querySelector("#forecast-" + i + "-date")
         futureForecastDateEl.textContent = "";
-        // var futureForecastDateEl = document.createElement("h6");
         futureForecastDateEl.classList = "text-light slight-margin-allaround";
         
         var startdate = moment().format("MM/DD/YYYY");
@@ -77,7 +103,6 @@ function getFiveDayForecastDates(){
         var month = new_date.format('MM');
         var day = new_date.format('DD');
         var year = new_date.format('YYYY');
-        var daySelectorElContainer = document.querySelector("#day-" + i + "-from-now")
         var daySelectorElDate = month + '/' + day + '/' + year
         futureForecastDateEl.textContent = daySelectorElDate;
 
@@ -123,8 +148,8 @@ function cityCurrentUVIndexApiCall(lat, lon){
         }
     });
 }
-
-//place this inside the main five day forecast function and 
+//not placing the UV index into the 5 day forecast just yet
+//place this inside the main five day forecast function  
 //
 // function cityFiveDayUVIndexApiCall(lat, lon){
 //     fetch(
@@ -357,40 +382,48 @@ function cityFiveDayApiCall(searchedCity){
     });
 }
 
+//add catch for when a city name could not be found, send a message to user and return
+//check if searched city is null and alert user no city name was entered
 function cityCurrentApiCall(searchedCity){
     fetch(
         apiCurrentUrl + searchedCity
-    )
-    .then(function(response){
-        console.log(response);
-        return response.json();
-    })
-    .then(function(response2){
-        console.log("city name object fetched from server")
-        console.log(response2);
-        console.log("city name fetched from server");
-        console.log(response2.name);
-
-        getCurrentWeatherIcon(response2.weather[0].icon);
-        getCurrentTemp(response2.main.temp);
-        getCurrentHumidity(response2.main.humidity);
-        getCurrentWindSpeed(response2.wind.speed);
-        getCurrentDescription(response2.weather[0].description);
-
-        //get the lat and lon values from the response place as arguments for this function
-        //let lat = response2.coord.lat;
-        //let lon = response2.coord.lon;
-        cityCurrentUVIndexApiCall(response2.coord.lat, response2.coord.lon);
-        
-
-        
-        var fetchedCityContainer = document.querySelector("#city-header");
-        var fetchedCityEl = document.createElement("p");
-        fetchedCityEl.classList = "city-alt";
-        fetchedCityEl.textContent = "(" + response2.name + ", " + response2.sys.country + ")";
-        fetchedCityContainer.appendChild(fetchedCityEl);
-
-    });
+        )
+        .then(function(response){
+            console.log(response);
+            if(response.ok){
+                response.json()
+                .then(function(response2){
+                    console.log("city name object fetched from server")
+                    console.log(response2);
+                    console.log("city name fetched from server");
+                    console.log(response2.name);
+                    
+                    getCurrentWeatherIcon(response2.weather[0].icon);
+                    getCurrentTemp(response2.main.temp);
+                    getCurrentHumidity(response2.main.humidity);
+                    getCurrentWindSpeed(response2.wind.speed);
+                    getCurrentDescription(response2.weather[0].description);
+                    
+                    //get the lat and lon values from the response place as arguments for this function
+                    //let lat = response2.coord.lat;
+                    //let lon = response2.coord.lon;
+                    cityCurrentUVIndexApiCall(response2.coord.lat, response2.coord.lon);
+                
+                    var fetchedCityContainer = document.querySelector("#city-header");
+                    //change this element to an <a> anchor element
+                    //set the function inside the HTML on click execute displaySearchedCity
+                    var fetchedCityEl = document.createElement("p");
+                    fetchedCityEl.classList = "city-alt";
+                    fetchedCityEl.textContent = "(" + response2.name + ", " + response2.sys.country + ")";
+                    fetchedCityContainer.appendChild(fetchedCityEl);
+                });
+            } else {
+                window.alert("I'm Sorry, we could not find that city: " + response.statusText);
+            }
+        })
+    .catch(
+        err => alert("Possible network error occurred. " + err)
+    );
     
 }
 
@@ -438,23 +471,34 @@ function getCurrentWeatherIcon(weatherIconObject){
 
 }
 
-//search city button function
-//need to add in the api fetches here, some changes will be made to this later to append info
-//from the api call to the city list and the city info section
-function displaySearchedCity(){
+//search city button function and past city searches function
+//DONE need to add in the api fetches here, some changes will be made to this later to append info
+//DONE  *from the api call to the city list and the city info section
+
+function displaySearchedCity(event){
+
+
     //prevent the submit button default action of refreshing the page
     event.preventDefault();
     
     //check button was clicked
+    console.log("here is the element we targeted with our click event");
+    console.log(event.target);
     console.log("search button was clicked")
     
     let cityHeader = document.querySelector("#city-header");
     //remove the hide class before we append
+    //get the value of the text field to place into the city span element
+    let cityName = document.querySelector("#city-name").value;
+    //check if the value was falsey or null return out of function
+    //  **alert user that no city name was entered
+    if (!cityName){
+        window.alert("no city name was entered!")
+        return;
+    }
     citylistEl.classList.remove("hide-before-append");
     cityHeader.classList.remove("hide-before-append");
     
-    //get the value of the text field to place into the city span element
-    let cityName = document.querySelector("#city-name").value;
     
     //create element containing city name
     let citySearchEl = document.createElement("span");
@@ -492,8 +536,15 @@ function clearInputField(){
 //submit button event listener
 buttonEl.addEventListener("click", displaySearchedCity);
 
+const pastCitySearchEl = document.querySelector("#city-list");
+pastCitySearchEl.addEventListener("click", function(event){
+    console.log("here is the element we targeted with our click event")
+    console.log(event.target);
+});
+
 const inputFormEl = document.querySelector("#input-form");
 //fixing the submit default of the input form which refreshes the page
+//after hitting enter, preventDefault fixes this
 inputFormEl.addEventListener("submit", function(event){
     event.preventDefault();
     displaySearchedCity();
