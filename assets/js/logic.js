@@ -29,6 +29,10 @@ const apiCurrentUrl = "https://api.openweathermap.org/data/2.5/weather?APPID=40f
 
 const apiFiveDayUrl = "https://api.openweathermap.org/data/2.5/forecast?APPID=40f2f21382e4c53e0bf3d5733b6759dc&q=";
 
+//const apiUVIndexUrl = "https://api.openweathermap.org/data/2.5/uvi?APPID=40f2f21382e4c53e0bf3d5733b6759dc&lat=&lon=";
+
+const apiFiveDayUVIndexUrl = "";
+
 
 //moment variables and objects
 function updateCurrentDate(){
@@ -74,6 +78,38 @@ function getFiveDayForecastDates(){
         //checking if this works, YAY!!
         //console.log(i);
     }
+}
+
+//place this function inside the main city search api call
+//and get the lat lon from that response2
+function cityCurrentUVIndexApiCall(lat, lon){
+    fetch(
+        "https://api.openweathermap.org/data/2.5/uvi?APPID=40f2f21382e4c53e0bf3d5733b6759dc&lat=" + lat
+         + "&lon=" + lon
+    )
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(response2){
+        console.log("response for the UV index object or value")
+        console.log(response2)
+    });
+}
+
+//place this inside the main five day forecast function and 
+//
+function cityFiveDayUVIndexApiCall(lat, lon){
+    fetch(
+        "https://api.openweathermap.org/data/2.5/uvi?APPID=40f2f21382e4c53e0bf3d5733b6759dc&lat=" + lat
+         + "&lon=" + lon
+    )
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(response2){
+        console.log("response for the five day forecast UV index object or value")
+        console.log(response2);
+    });
 }
 
 function cityFiveDayApiCall(searchedCity){
@@ -252,6 +288,13 @@ function cityFiveDayApiCall(searchedCity){
         const descDay5El = document.querySelector("#day-five-description");
         //set textContent for each one
         descDay5El.textContent = descDay5;
+
+        //day1 UV Index
+        //day2 UV Index
+        //day3 UV Index
+        //day4 UV Index
+        //day5 UV Index
+        
         
     });
 }
