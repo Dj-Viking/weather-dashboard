@@ -60,13 +60,26 @@ padding: 2.5%;
     color: lightblue;
 }
 
+.button-search-name {
+  background-color: lightblue;
+  transition: .5s;
+  color: black;
+  border-radius: 25px;
+}
+
+.button-search-name:hover{
+  background-color:#0275d8;
+  color: white;
+  transition: .5s;
+}
+
 .border-standard {
     border: 3px var(--light-dark) solid;
     border-radius: 10px;
 }
 
 .border-bottom-user {
-  border-bottom: 3px blue solid;
+  border-bottom: 3px #0275d8 solid;
   border-radius: var(--border-radius);
   /* border-radius: 10px; */
 }

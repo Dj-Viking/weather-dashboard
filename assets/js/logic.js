@@ -17,6 +17,11 @@
 //DONE SO THAT THE TEXT FIELD CAN ACT LIKE A SUBMIT BUTTON TOO??
 //????? HOW TO TRACK HOW MANY API CALLS I HAVE DONE AND STORE INTO STORAGE MAYBE??
 //????? HOW TO HIDE API KEY AND STILL USE THE APP NORMALLY??
+//????? repeat searches just go to the top of the history
+//????? if city could not be found dont prepend to the history
+//????? how to display local time of the searched city??
+
+
 
 //document variables
 //  form input textarea element
@@ -74,7 +79,7 @@ function loadCity(){
         cityNameEl.textContent = cityArray[i];
         //create an <button> element we want to append the city name span to
         const cityNameButtonEl = document.createElement("button");
-        cityNameButtonEl.classList = "slight-margin-allaround width-100"
+        cityNameButtonEl.classList = "slight-margin-allaround width-100 button-search-name"
         cityNameButtonEl.setAttribute("type", "submit");
         //prepend the citynamebuttonEl into the citylistEl
         citylistEl.prepend(cityNameButtonEl);
@@ -461,7 +466,7 @@ function cityCurrentApiCall(searchedCity){
                     fetchedCityContainer.appendChild(fetchedCityEl);
                 });
             } else {
-                window.alert("I'm Sorry, we could not find that city: " + response.statusText);
+                window.alert("We could not find that city: " + response.statusText);
             }
         })
     .catch(
