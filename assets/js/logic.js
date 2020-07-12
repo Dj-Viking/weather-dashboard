@@ -7,9 +7,9 @@
 //DONE THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
 //DONE WHEN I view future weather conditions for that city
 //DONE THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
-// WHEN I click on a city in the search history
-//  **making the <a> tag have the on click function inside to invoke the api call again just like the search
-// THEN I am again presented with current and future conditions for that city
+//DONE WHEN I click on a city in the search history
+//DONE  **making the <button> tag have the on click function inside to invoke the api call again just like the search
+//DONE THEN I am again presented with current and future conditions for that city
 
 //DONE  have the forecast unhide after selecting the city and updating to the document
 
@@ -43,9 +43,12 @@ const apiFiveDayUVIndexUrl = "";
 let cityArray = []
 
 //make saveCity function
-function saveCity(){
+function saveCity(cityName){
     //save everytime user searches a city
     //so place this function where
+    //place the cityname passed in, to the array that we are storing
+    cityArray.push(cityName);
+    console.log(cityArray);
     localStorage.setItem("cityArray", JSON.stringify(cityArray));
     console.log("city array got updated in storage!")
 }
@@ -54,10 +57,50 @@ function saveCity(){
 
 //make loadCity function
 //on the clicked <a> element that has the city name inside execute load city
-
+loadCity();
 function loadCity(){
     console.log("loading clicked city from the past searches list")
     cityArray = JSON.parse(localStorage.getItem("cityArray"));
+    if (!cityArray || cityArray === null){
+        cityArray = []
+    }
+    citylistEl.classList.remove("hide-before-append");
+    for (let i = 0; i < cityArray.length; i++){
+        //create the element to store the value of the index we are iterating through
+        const cityNameEl = document.createElement("span");
+        //add the classes that we want to the element
+        cityNameEl.classList = "slight-margin-allaround width-100 border-bottom-user";
+        //assign the value of new element with the text of the array index
+        cityNameEl.textContent = cityArray[i];
+        //create an <button> element we want to append the city name span to
+        const cityNameButtonEl = document.createElement("button");
+        cityNameButtonEl.classList = "slight-margin-allaround width-100"
+        cityNameButtonEl.setAttribute("type", "submit");
+        //prepend the citynamebuttonEl into the citylistEl
+        citylistEl.prepend(cityNameButtonEl);
+        //append the span into the button
+        cityNameButtonEl.appendChild(cityNameEl);
+        cityNameButtonEl.addEventListener("click", function(event){
+            //console.log("here is the element we targeted with our click event")
+            console.log(event.target);
+            formInputTextAreaEl.value = cityArray[i];
+            displaySearchedCityFromButton(formInputTextAreaEl.value);
+        });
+    }
+}
+
+function displaySearchedCityFromButton(cityName){
+    event.preventDefault();
+    const cityHeader = document.querySelector("#city-header");
+    citylistEl.classList.remove("hide-before-append");
+    cityHeader.classList.remove("hide-before-append");
+    updateCurrentDate();
+    cityHeader.innerText = cityName;
+    clearInputField();
+    cityCurrentApiCall(cityName);
+    cityFiveDayApiCall(cityName);
+    getFiveDayForecastDates();
+
 }
 //check if the array in localStorage is null or falsey set it to empty array
 //else make for loop for each string inside the storage array
@@ -486,10 +529,10 @@ function displaySearchedCity(){
     console.log(event.target);
     console.log("search button was clicked")
     
-    let cityHeader = document.querySelector("#city-header");
+    const cityHeader = document.querySelector("#city-header");
     //remove the hide class before we append
     //get the value of the text field to place into the city span element
-    let cityName = document.querySelector("#city-name").value;
+    const cityName = document.querySelector("#city-name").value;
     //check if the value was falsey or null return out of function
     //  **alert user that no city name was entered
     if (!cityName){
@@ -498,10 +541,14 @@ function displaySearchedCity(){
     }
     citylistEl.classList.remove("hide-before-append");
     cityHeader.classList.remove("hide-before-append");
-    
-    
+
     //create element containing city name
-    let citySearchEl = document.createElement("span");
+    const citySearchEl = document.createElement("span");
+    //create button element to append the span to
+    const citySearchedButtonEl = document.createElement("button");
+    citySearchedButtonEl.classList = "slight-margin-allaround width-100";
+    citySearchedButtonEl.setAttribute("type", "submit");
+    citySearchedButtonEl.appendChild(citySearchEl);
     
     //set class list for city name container
     citySearchEl.classList = "slight-margin-allaround width-100 border-bottom-user"
@@ -516,12 +563,19 @@ function displaySearchedCity(){
     citySearchEl.innerText = cityName;
     
     //prepend the cityEl into the citylistEl
-    citylistEl.prepend(citySearchEl);
+    citylistEl.prepend(citySearchedButtonEl);
+    citySearchedButtonEl.addEventListener("click", function(event){
+        //console.log("here is the element we targeted with our click event")
+        console.log(event.target);
+        formInputTextAreaEl.value = cityName;
+        displaySearchedCityFromButton(formInputTextAreaEl.value);
+    });
     clearInputField();
     getFiveDayForecastDates();
     cityCurrentApiCall(cityName);
     cityFiveDayApiCall(cityName);
     //updateTime.classList.remove("hide-before-append");
+    saveCity(cityName);
 
 }
 
@@ -535,12 +589,6 @@ function clearInputField(){
 
 //submit button event listener
 buttonEl.addEventListener("click", displaySearchedCity);
-
-const pastCitySearchEl = document.querySelector("#city-list");
-pastCitySearchEl.addEventListener("click", function(event){
-    console.log("here is the element we targeted with our click event")
-    console.log(event.target);
-});
 
 const inputFormEl = document.querySelector("#input-form");
 //fixing the submit default of the input form which refreshes the page
