@@ -551,7 +551,7 @@ function displaySearchedCity(){
     const citySearchEl = document.createElement("span");
     //create button element to append the span to
     const citySearchedButtonEl = document.createElement("button");
-    citySearchedButtonEl.classList = "slight-margin-allaround width-100";
+    citySearchedButtonEl.classList = "slight-margin-allaround width-100 button-search-name";
     citySearchedButtonEl.setAttribute("type", "submit");
     citySearchedButtonEl.appendChild(citySearchEl);
     
