@@ -197,7 +197,9 @@ function cityCurrentUVIndexApiCall(lat, lon){
             currentUVnumEl.classList = "very-high";
         } else if(currentUVnum >= 8 && currentUVnum <= 10) {
             currentUVnumEl.classList = "very-high";
-        } else if(currentUVnum >= 11) {
+        } else if (currentUVnum > 10 && currentUVnum <= 11){
+            currentUVnumEl.classList = "very-high";
+        } else if(currentUVnum > 11) {
             currentUVnumEl.classList = "extreme";
         }
     });
