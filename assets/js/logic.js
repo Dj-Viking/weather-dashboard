@@ -522,7 +522,7 @@ function getCurrentWeatherIcon(weatherIconObject){
     var weatherIconEl = document.createElement("img");
     weatherIconEl.classList = "img-background ml-2 mt-2";
     var weatherIconContainer = document.querySelector("#city-header");
-    weatherIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherIconObject + "@2x.png");
+    weatherIconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherIconObject + "@2x.png");
     weatherIconContainer.appendChild(weatherIconEl);
 
 }
