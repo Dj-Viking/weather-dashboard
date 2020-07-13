@@ -17,7 +17,7 @@
     <body>
         <!-- header start -->
         <header class="bg-dark">
-            <div class="container">
+            <div class="container" id="no-pad-container">
                 <h1 class="text-center text-light bg-dark">
                     Weather Dashboard 
                 </h1>
@@ -27,7 +27,7 @@
         <!-- search city start -->
         <section class="container row mr-none pad-right-some col-12">
             <div class="col-4">
-                    <h2 class="card-title">
+                    <h2 class="card-title" id="city-search-title">
                         Search for a city by name:
                     </h2>
                     <div class="row">
@@ -38,7 +38,7 @@
                                 type="text" 
                                 autofocus="true" 
                                 class="form-input"
-                                placeholder="Enter a city name here"
+                                placeholder="City Name"
                             />
                         </form>
                         <button type="submit" id="search-button" class="btn button-colors mb-4 mt-2 ml-2">
@@ -51,7 +51,7 @@
                         <!-- the div appended will be the text object from the promise returned from the api call to open weather -->
                     </div>
                     <!-- city name section start-->
-                    <section class="ml-2">
+                    <section class="ml-2" id="search-history-section">
                         <h5>
                             Search History:
                         </h5>
@@ -73,7 +73,7 @@
                     <!-- city name section end -->
                 </div>
                 <!-- within this row start current city info -->
-                <div class="col-8 border-standard">
+                <div class="col-8 border-standard-weather">
                     <h3 class="border-bottom-user" id="city-name-header">
                         <p>Weather Currently:</p><p id="city-header" class="hide-before-append"></p>
                         <span id="current-date" class="ml-2"></span><span id="current-time" class="ml-2 hide-before-append"></span>
@@ -95,10 +95,10 @@
                     </p><!-- add class to the uv span according to the index value -->
                     <!-- 5-day forcast below city info -->
                     <div class="container mt-5">
-                        <h3>
+                        <h3 id="five-day-header-text">
                             5-Day Forecast (Projected by 12pm)
                         </h3>
-                        <div class="row hide-before-append width-100" id="forecast-row">
+                        <div class="row hide-before-append width-card-unique" id="forecast-row">
                             <div class="card bg-primary mr-2">
                                 <span class="card-title" id="day-1-from-now" data-day="1">
                                     <h6 id="forecast-1-date">

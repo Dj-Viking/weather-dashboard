@@ -187,10 +187,16 @@ function cityCurrentUVIndexApiCall(lat, lon){
             currentUVnumEl.classList = "low";
         } else if(currentUVnum >= 3 && currentUVnum <= 5) {
             currentUVnumEl.classList = "moderate";
+        } else if (currentUVnum >=5 && currentUVnum < 6){
+            currentUVnumEl.classList = "moderate";
         } else if(currentUVnum >= 6 && currentUVnum <= 7) {
             currentUVnumEl.classList = "high";
-        } else if(currentUVnum >= 8 && currentUVnum < 10) {
-            currentUVnumEl.classList = "very high";
+        } else if (currentUVnum >= 7 && currentUVnum < 8){
+            currentUVnumEl.classList = "high";
+        } else if (currentUVnum >= 8 && currentUVnum <= 9){
+            currentUVnumEl.classList = "very-high";
+        } else if(currentUVnum >= 8 && currentUVnum <= 10) {
+            currentUVnumEl.classList = "very-high";
         } else if(currentUVnum >= 11) {
             currentUVnumEl.classList = "extreme";
         }
