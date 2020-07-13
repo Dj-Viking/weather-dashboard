@@ -259,27 +259,27 @@ function cityFiveDayApiCall(searchedCity){
         //get day1 icon
         var day1IconId = response2.list[6].weather[0].icon;
         iconDay1El = document.querySelector("#day1-img");
-        iconDay1El.setAttribute("src", "http://openweathermap.org/img/wn/" + day1IconId + "@2x.png");
+        iconDay1El.setAttribute("src", "https://openweathermap.org/img/wn/" + day1IconId + "@2x.png");
         
         //get day2 icon
         var day2IconId = response2.list[14].weather[0].icon;
         iconDay2El = document.querySelector("#day2-img")
-        iconDay2El.setAttribute("src", "http://openweathermap.org/img/wn/" + day2IconId + "@2x.png");
+        iconDay2El.setAttribute("src", "https://openweathermap.org/img/wn/" + day2IconId + "@2x.png");
         
         //get day3 icon
         var day3IconId = response2.list[22].weather[0].icon;
         iconDay3El = document.querySelector("#day3-img")
-        iconDay3El.setAttribute("src", "http://openweathermap.org/img/wn/" + day3IconId + "@2x.png");
+        iconDay3El.setAttribute("src", "https://openweathermap.org/img/wn/" + day3IconId + "@2x.png");
         
         //get day4 icon
         var day4IconId = response2.list[30].weather[0].icon;
         iconDay4El = document.querySelector("#day4-img")
-        iconDay4El.setAttribute("src", "http://openweathermap.org/img/wn/" + day4IconId + "@2x.png");
+        iconDay4El.setAttribute("src", "https://openweathermap.org/img/wn/" + day4IconId + "@2x.png");
         
         //get day5 icon
         var day5IconId = response2.list[38].weather[0].icon;
         iconDay5El = document.querySelector("#day5-img")
-        iconDay5El.setAttribute("src", "http://openweathermap.org/img/wn/" + day5IconId + "@2x.png");
+        iconDay5El.setAttribute("src", "https://openweathermap.org/img/wn/" + day5IconId + "@2x.png");
         
         //get temp day1 CONVERT UNITS!!!
         var tempDay1 = response2.list[6].main.temp;
