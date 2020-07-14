@@ -36,7 +36,9 @@ const citylistEl = document.querySelector("#city-list");
 //select element for the 5 day forecast dates
 const forecastRowEl = document.querySelector("#forecast-row");
 
-
+// var imported = document.createElement('script');
+// imported.src = './assets/js/config.js';
+// document.head.appendChild(imported);
 
 const WEATHER_KEY = config.WEATHER_KEY;
 
