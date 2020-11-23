@@ -42,7 +42,6 @@ const forecastRowEl = document.querySelector("#forecast-row");
 
 // const WEATHER_KEY = config.WEATHER_KEY;
 const WEATHER_KEY = window.prompt("Notice: Until a partial backend solution is found for this application- Please enter your personal Open Weather API-key to use this app.\n\nPress OK after you have entered in your key and enjoy the app! ");
-
 const apiCurrentUrl = `https://api.openweathermap.org/data/2.5/weather?APPID=${WEATHER_KEY}&q=`;
 
 const apiFiveDayUrl = `https://api.openweathermap.org/data/2.5/forecast?APPID=${WEATHER_KEY}&q=`;
@@ -180,33 +179,52 @@ function cityCurrentUVIndexApiCall(lat, lon){
         console.log("response for the current day UV index object or value");
         console.log(response2);
         //get the UV index number
-        var currentUVnum = response2.value;
+        let currentUVnum = response2.value;
 
         //select element to put the text in
-        var currentUVnumEl = document.querySelector("#day-current-UV");
+        const currentUVnumEl = document.querySelector("#day-current-UV");
         //set the text in the element
         currentUVnumEl.textContent = currentUVnum;
         //if statement determining the index value to change the color of the background of the text
         //and change the text color to match the background color to the UV index standard 
-        if (currentUVnum === 0 || currentUVnum < 1){
-            currentUVnumEl.classList = "low";
-        } else if (currentUVnum >= 1 && currentUVnumEl <= 2){
-            currentUVnumEl.classList = "low";
-        } else if(currentUVnum >= 3 && currentUVnum <= 5) {
+        if (currentUVnum === 0 || currentUVnum < 1)
+        {
+            currentUVnumEl.classList = 'low';
+        } 
+        else if (currentUVnum >= 1 && currentUVnum <= 2)
+        {
+            currentUVnumEl.classList = 'low';
+        } 
+        else if(currentUVnum >= 3 && currentUVnum <= 5)
+        {
             currentUVnumEl.classList = "moderate";
-        } else if (currentUVnum >=5 && currentUVnum < 6){
+        } 
+        else if (currentUVnum >=5 && currentUVnum < 6)
+        {
             currentUVnumEl.classList = "moderate";
-        } else if(currentUVnum >= 6 && currentUVnum <= 7) {
+        } 
+        else if(currentUVnum >= 6 && currentUVnum <= 7) 
+        {
             currentUVnumEl.classList = "high";
-        } else if (currentUVnum >= 7 && currentUVnum < 8){
+        } 
+        else if (currentUVnum >= 7 && currentUVnum < 8)
+        {
             currentUVnumEl.classList = "high";
-        } else if (currentUVnum >= 8 && currentUVnum <= 9){
+        } 
+        else if (currentUVnum >= 8 && currentUVnum <= 9)
+        {
             currentUVnumEl.classList = "very-high";
-        } else if(currentUVnum >= 8 && currentUVnum <= 10) {
+        } 
+        else if(currentUVnum >= 8 && currentUVnum <= 10) 
+        {
             currentUVnumEl.classList = "very-high";
-        } else if (currentUVnum > 10 && currentUVnum <= 11){
+        } 
+        else if (currentUVnum > 10 && currentUVnum <= 11)
+        {
             currentUVnumEl.classList = "very-high";
-        } else if(currentUVnum > 11) {
+        } 
+        else if(currentUVnum > 11) 
+        {
             currentUVnumEl.classList = "extreme";
         }
     });
