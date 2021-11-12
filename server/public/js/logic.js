@@ -41,10 +41,14 @@ const forecastRowEl = document.querySelector("#forecast-row");
 // document.head.appendChild(imported);
 
 // const WEATHER_KEY = config.WEATHER_KEY;
-const WEATHER_KEY = window.prompt("Notice: Until a partial backend solution is found for this application- Please enter your personal Open Weather API-key to use this app.\n\nPress OK after you have entered in your key and enjoy the app! ");
-const apiCurrentUrl = `https://api.openweathermap.org/data/2.5/weather?APPID=${WEATHER_KEY}&q=`;
+// const WEATHER_KEY = window.prompt("Notice: Until a partial backend solution is found for this application- Please enter your personal Open Weather API-key to use this app.\n\nPress OK after you have entered in your key and enjoy the app! ");
+const apiCurrentUrl =
+`http://localhost:4000/current?q=`;
+/*`https://api.openweathermap.org/data/2.5/weather?APPID=${WEATHER_KEY}&q=`;*/
 
-const apiFiveDayUrl = `https://api.openweathermap.org/data/2.5/forecast?APPID=${WEATHER_KEY}&q=`;
+const apiFiveDayUrl = 
+`http://localhost:4000/fiveday?q=`
+ /*`https://api.openweathermap.org/data/2.5/forecast?APPID=${WEATHER_KEY}&q=`;*/
 
 //const apiUVIndexUrl = "https://api.openweathermap.org/data/2.5/uvi?APPID=${WEATHER_KEY}&lat=&lon=";
 

@@ -6,3 +6,4 @@ city.list.json
 example-city-api-call.png
 .env
 config.js
+node_modules
