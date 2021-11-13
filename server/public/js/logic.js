@@ -53,7 +53,7 @@ const apiFiveDayUrl =
 
 //const apiUVIndexUrl = "https://api.openweathermap.org/data/2.5/uvi?APPID=${WEATHER_KEY}&lat=&lon=";
 
-const apiFiveDayUVIndexUrl = `http://localhost:4000/uvindex`
+const apiFiveDayUVIndexUrl = `http://localhost:4000/uvindex?lat=`
 
 /* `https://api.openweathermap.org/data/2.5/uvi?lat=`;*/
 
@@ -279,7 +279,7 @@ function cityFiveDayApiCall(searchedCity){
         apiFiveDayUrl + searchedCity
     )
     .then(function(response){
-        return response.json()
+        return response.json();
     })
     .then(function({ data }){
         console.log("fetched 5 day forecast of city searched");

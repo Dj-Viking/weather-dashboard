@@ -13,9 +13,12 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //current day api call
 app.get("/current", async (req, res) => {
+  if (!req.query.q) {
+    return res.status(422).json({ error: "Error! missing q query parameter!" });
+  }
 
   /**
-   * @type {string} city name that was sent from the client 
+   * @type {string | void} city name that was sent from the client 
    */
   const cityQuery = req.query.q;
   console.log("what is api key here", API_KEY);
@@ -76,7 +79,7 @@ app.get("/current", async (req, res) => {
 
   console.log("api fetch data", data);
 
-  return res.status(200).json( { data } )
+  return res.status(200).json({ data });
   
   // console.log("got a request from client", req.query);
   /*`https://api.openweathermap.org/data/2.5/weather?APPID=${WEATHER_KEY}&q=`;*/
@@ -88,10 +91,20 @@ app.get("/current", async (req, res) => {
 });
 // five day weather forecast call
 app.get("/fiveday", async (req, res) => {
-  console.log("got a request for fiveday forecast from client", req.query);
+  if (!req.query.q) {
+    return res.status(422).json({ error: "Error! missing q query parameter!" });
+  }
+  console.log("got a request for fiveday forecast from client", req.query.q);
+  /**
+   * @type {string | void} 
+   */
+  const fivedayQuery = req.query.q;
   /*`https://api.openweathermap.org/data/2.5/forecast?APPID=${WEATHER_KEY}&q=`;*/
   try {
-     
+    const url = `https://api.openweathermap.org/data/2.5/forecast?APPID=${API_KEY}&q=${fivedayQuery}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return res.status(200).json({ data });
   } catch (error) {
     console.error("error when requesting for five day forecast");
     res.status(500).json({ error })
@@ -99,8 +112,19 @@ app.get("/fiveday", async (req, res) => {
 });
 
 app.get("/uvindex", async (req, res) => {
-  console.log("got request for uv index");
-  console.log("")
+  if (!req.query.lat || !req.query.lon) {
+    return res.status(422).json({ error: "Error! missing lat and lon query parameters!" });
+  }
+  try {
+    /* `https://api.openweathermap.org/data/2.5/uvi?lat=`;*/
+    const url = `https://api.openweathermap.org/data/2.5/uvi?lat=${req.query.lat}&lon=${req.query.lon}&APPID=${API_KEY}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return res.status(200).json({ data });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error });
+  }
 });
 
 app.listen(PORT, () => {
