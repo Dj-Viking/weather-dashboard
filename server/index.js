@@ -13,6 +13,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //current day api call
 app.get("/current", async (req, res) => {
+
   /**
    * @type {string} city name that was sent from the client 
    */
@@ -23,20 +24,83 @@ app.get("/current", async (req, res) => {
 
   console.log("what is the url here", url);
 
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityQuery}&weather_stuff=${API_KEY}`);
+  try {
+    const response = await fetch(url);
   /**
-   * @type {}
+   * @type {{
+   *   coord: { 
+   *     lon: number;
+   *     lat: number;
+   *   };
+   *   weather: [
+   *     {
+   *       id: number;
+   *       main: string;
+   *       description: string;
+   *       icon: string;
+   *     }
+   *   ];
+   *   base: string;
+   *   main: {
+   *     temp: number;
+   *     feels_like: number;
+   *     temp_min: number;
+   *     temp_max: number;
+   *     pressure: number;
+   *     humidity: number;
+   *     sea_level: number;
+   *     grnd_level: number;
+   *   };
+   *   visibility: number;
+   *   wind: {
+   *     speed: number;
+   *     deg: number;
+   *     gust: number;
+   *   };
+   *   clouds: { all: number; };
+   *   dt: number;
+   *   sys: {
+   *     type: number;
+   *     id: number;
+   *     country: string;
+   *     sunrise: number;
+   *     sunset: number;
+   *   };
+   *   timezone: number;
+   *   id: number;
+   *   name: string;
+   *   cod: 200
+   * }}
    */
   const data = await response.json();
 
   console.log("api fetch data", data);
+
+  return res.status(200).json( { data } )
+  
   // console.log("got a request from client", req.query);
   /*`https://api.openweathermap.org/data/2.5/weather?APPID=${WEATHER_KEY}&q=`;*/
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error });
+  }
+  
 });
 // five day weather forecast call
 app.get("/fiveday", async (req, res) => {
   console.log("got a request for fiveday forecast from client", req.query);
-   /*`https://api.openweathermap.org/data/2.5/forecast?APPID=${WEATHER_KEY}&q=`;*/
+  /*`https://api.openweathermap.org/data/2.5/forecast?APPID=${WEATHER_KEY}&q=`;*/
+  try {
+     
+  } catch (error) {
+    console.error("error when requesting for five day forecast");
+    res.status(500).json({ error })
+  }
+});
+
+app.get("/uvindex", async (req, res) => {
+  console.log("got request for uv index");
+  console.log("")
 });
 
 app.listen(PORT, () => {
