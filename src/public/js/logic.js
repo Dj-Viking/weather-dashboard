@@ -41,14 +41,21 @@ const forecastRowEl = document.querySelector("#forecast-row");
 // document.head.appendChild(imported);
 
 // const WEATHER_KEY = config.WEATHER_KEY;
-const WEATHER_KEY = window.prompt("Notice: Until a partial backend solution is found for this application- Please enter your personal Open Weather API-key to use this app.\n\nPress OK after you have entered in your key and enjoy the app! ");
-const apiCurrentUrl = `https://api.openweathermap.org/data/2.5/weather?APPID=${WEATHER_KEY}&q=`;
+// const WEATHER_KEY = window.prompt("Notice: Until a partial backend solution is found for this application- Please enter your personal Open Weather API-key to use this app.\n\nPress OK after you have entered in your key and enjoy the app! ");
+const apiCurrentUrl =
+`http://localhost:4000/current?q=`;
+/*`https://api.openweathermap.org/data/2.5/weather?APPID=${WEATHER_KEY}&q=`;*/
 
-const apiFiveDayUrl = `https://api.openweathermap.org/data/2.5/forecast?APPID=${WEATHER_KEY}&q=`;
+const apiFiveDayUrl = 
+`http://localhost:4000/fiveday?q=`
+ /*`https://api.openweathermap.org/data/2.5/forecast?APPID=${WEATHER_KEY}&q=`;*/
+
 
 //const apiUVIndexUrl = "https://api.openweathermap.org/data/2.5/uvi?APPID=${WEATHER_KEY}&lat=&lon=";
 
-const apiFiveDayUVIndexUrl = "";
+const apiFiveDayUVIndexUrl = `http://localhost:4000/uvindex?lat=`
+
+/* `https://api.openweathermap.org/data/2.5/uvi?lat=`;*/
 
 //initializing a city array for use with local storage
 let cityArray = []
@@ -59,9 +66,7 @@ function saveCity(cityName){
     //so place this function where
     //place the cityname passed in, to the array that we are storing
     cityArray.push(cityName);
-    console.log(cityArray);
     localStorage.setItem("cityArray", JSON.stringify(cityArray));
-    console.log("city array got updated in storage!")
 }
 //push the city string name into a temparray that gets pushed into localStorage
 //have to check notes again for the storage...
@@ -70,7 +75,6 @@ function saveCity(cityName){
 //on the clicked <a> element that has the city name inside execute load city
 loadCity();
 function loadCity(){
-    console.log("loading clicked city from the past searches list")
     cityArray = JSON.parse(localStorage.getItem("cityArray"));
     if (!cityArray || cityArray === null){
         cityArray = []
@@ -92,8 +96,6 @@ function loadCity(){
         //append the span into the button
         cityNameButtonEl.appendChild(cityNameEl);
         cityNameButtonEl.addEventListener("click", function(event){
-            //console.log("here is the element we targeted with our click event")
-            console.log(event.target);
             formInputTextAreaEl.value = cityArray[i];
             displaySearchedCityFromButton(formInputTextAreaEl.value);
         });
@@ -161,25 +163,22 @@ function getFiveDayForecastDates(){
         futureForecastDateEl.textContent = daySelectorElDate;
 
         //checking if this works, YAY!!
-        //console.log(i);
     }
 }
 
 //place this function inside the main city search api call
-//and get the lat lon from that response2
+//and get the lat lon from that data
 function cityCurrentUVIndexApiCall(lat, lon){
     fetch(
-        `https://api.openweathermap.org/data/2.5/uvi?APPID=${WEATHER_KEY}&lat=` + lat
+        apiFiveDayUVIndexUrl + lat
          + "&lon=" + lon
     )
     .then(function(response){
         return response.json();
     })
-    .then(function(response2){
-        console.log("response for the current day UV index object or value");
-        console.log(response2);
+    .then(function({ data }){
         //get the UV index number
-        let currentUVnum = response2.value;
+        let currentUVnum = data.value;
 
         //select element to put the text in
         const currentUVnumEl = document.querySelector("#day-current-UV");
@@ -240,14 +239,12 @@ function cityCurrentUVIndexApiCall(lat, lon){
 //     .then(function(response){
 //         return response.json();
 //     })
-//     .then(function(response2){
-//         console.log("response for the five day forecast UV index object or value")
-//         console.log(response2);
+//     .then(function(data){
 
     //     //for loop to iterate through each date based on the 12pm index value
     //     for (let i = 1; i < 6; i++){
     //         //get the value of the UV index from the response
-    //        // var uvDayNum = response2.
+    //        // var uvDayNum = data.
     //         //select element we are putting the text inside
     //         var uvDayEl = document.querySelector("#day-" + i + "UV");
 
@@ -264,198 +261,199 @@ function cityCurrentUVIndexApiCall(lat, lon){
     // });
 // }
 
+
+// TODO: set this up with a loop that can increment the iterator
+// such that I dont have to repeat everything so many times
 function cityFiveDayApiCall(searchedCity){
     fetch(
         apiFiveDayUrl + searchedCity
     )
     .then(function(response){
-        return response.json()
+        return response.json();
     })
-    .then(function(response2){
-        console.log("fetched 5 day forecast of city searched");
-        console.log(response2);//get the 12pm midday hour weather indexes
-        //day1 response2.list[6]
-        //day2 response2.list[14]
-        //day3 response2.list[22]
-        //day4 response2.list[30]
-        //day5 response2.list[38]
+    .then(function({ data }){
+        //day1 data.list[6]
+        //day2 data.list[14]
+        //day3 data.list[22]
+        //day4 data.list[30]
+        //day5 data.list[38]
         
         //DONE
         //get day1 icon
-        var day1IconId = response2.list[6].weather[0].icon;
+        const day1IconId = data.list[6].weather[0].icon;
         iconDay1El = document.querySelector("#day1-img");
         iconDay1El.setAttribute("src", "https://openweathermap.org/img/wn/" + day1IconId + "@2x.png");
         
         //get day2 icon
-        var day2IconId = response2.list[14].weather[0].icon;
+        const day2IconId = data.list[14].weather[0].icon;
         iconDay2El = document.querySelector("#day2-img")
         iconDay2El.setAttribute("src", "https://openweathermap.org/img/wn/" + day2IconId + "@2x.png");
         
         //get day3 icon
-        var day3IconId = response2.list[22].weather[0].icon;
+        const day3IconId = data.list[22].weather[0].icon;
         iconDay3El = document.querySelector("#day3-img")
         iconDay3El.setAttribute("src", "https://openweathermap.org/img/wn/" + day3IconId + "@2x.png");
         
         //get day4 icon
-        var day4IconId = response2.list[30].weather[0].icon;
+        const day4IconId = data.list[30].weather[0].icon;
         iconDay4El = document.querySelector("#day4-img")
         iconDay4El.setAttribute("src", "https://openweathermap.org/img/wn/" + day4IconId + "@2x.png");
         
         //get day5 icon
-        var day5IconId = response2.list[38].weather[0].icon;
+        const day5IconId = data.list[38].weather[0].icon;
         iconDay5El = document.querySelector("#day5-img")
         iconDay5El.setAttribute("src", "https://openweathermap.org/img/wn/" + day5IconId + "@2x.png");
         
         //get temp day1 CONVERT UNITS!!!
-        var tempDay1 = response2.list[6].main.temp;
+        const tempDay1 = data.list[6].main.temp;
         //target the element we are placing in
-        var tempDay1El = document.querySelector("#day-one-temp");
+        const tempDay1El = document.querySelector("#day-one-temp");
         //convert units
-        var tempFOne = tempConvKtoF(tempDay1);
-        var tempCOne = tempConvKtoC(tempDay1);
+        const tempFOne = tempConvKtoF(tempDay1);
+        const tempCOne = tempConvKtoC(tempDay1);
         //set textContent
         tempDay1El.textContent = tempFOne + "°F / " + tempCOne + "°C";
 
         //get temp day2
-        var tempDay2 = response2.list[14].main.temp;
+        const tempDay2 = data.list[14].main.temp;
         //target the element we are placing in
         tempDay2El = document.querySelector("#day-two-temp");
          //convert units
-         var tempFTwo = tempConvKtoF(tempDay2);
-         var tempCTwo = tempConvKtoC(tempDay2);
+         const tempFTwo = tempConvKtoF(tempDay2);
+         const tempCTwo = tempConvKtoC(tempDay2);
          //set textContent
          tempDay2El.textContent = tempFTwo + "°F / " + tempCTwo + "°C";
 
         //get temp day3
-        var tempDay3 = response2.list[22].main.temp;
+        const tempDay3 = data.list[22].main.temp;
         //target the element we are placing in
         tempDay3El = document.querySelector("#day-three-temp");
          //convert units
-         var tempFThree = tempConvKtoF(tempDay3);
-         var tempCThree = tempConvKtoC(tempDay3);
+         const tempFThree = tempConvKtoF(tempDay3);
+         const tempCThree = tempConvKtoC(tempDay3);
          //set textContent
          tempDay3El.textContent = tempFThree + "°F / " + tempCThree + "°C";
 
         //get temp day4
-        var tempDay4 = response2.list[30].main.temp;
+        const tempDay4 = data.list[30].main.temp;
         //target the element we are placing in
         tempDay4El = document.querySelector("#day-four-temp");
          //convert units
-         var tempFFour = tempConvKtoF(tempDay4);
-         var tempCFour = tempConvKtoC(tempDay4);
+         const tempFFour = tempConvKtoF(tempDay4);
+         const tempCFour = tempConvKtoC(tempDay4);
          //set textContent
          tempDay4El.textContent = tempFFour + "°F / " + tempCFour + "°C";
 
         //get temp day5
-        var tempDay5 = response2.list[38].main.temp;
+        const tempDay5 = data.list[38].main.temp;
         //target the element we are placing in
         tempDay5El = document.querySelector("#day-five-temp");
          //convert units
-         var tempFFive = tempConvKtoF(tempDay5);
-         var tempCFive = tempConvKtoC(tempDay5);
+         const tempFFive = tempConvKtoF(tempDay5);
+         const tempCFive = tempConvKtoC(tempDay5);
          //set textContent
          tempDay5El.textContent = tempFFive + "°F / " + tempCFive + "°C";
 
         //get humidity day1
-        var humidDay1 = response2.list[6].main.humidity;
+        const humidDay1 = data.list[6].main.humidity;
         //target the element we are placing in
         const humidDay1El = document.querySelector("#day-one-humid");
         //set textContent for each one
         humidDay1El.textContent = humidDay1;
 
         //get humidity day2
-        var humidDay2 = response2.list[14].main.humidity;
+        const humidDay2 = data.list[14].main.humidity;
         //target the element we are placing in
         const humidDay2El = document.querySelector("#day-two-humid");
         //set textContent for each one
         humidDay2El.textContent = humidDay2;
 
         //get humidity day3
-        var humidDay3 = response2.list[22].main.humidity;
+        const humidDay3 = data.list[22].main.humidity;
         //target the element we are placing in
         const humidDay3El = document.querySelector("#day-three-humid");
         //set textContent for each one
         humidDay3El.textContent = humidDay3;
 
         //get humidity day4
-        var humidDay4 = response2.list[30].main.humidity;
+        const humidDay4 = data.list[30].main.humidity;
         //target the element we are placing in
         const humidDay4El = document.querySelector("#day-four-humid");
         //set textContent for each one
         humidDay4El.textContent = humidDay4;
 
         //get humidity day5
-        var humidDay5 = response2.list[38].main.humidity;
+        const humidDay5 = data.list[38].main.humidity;
         //target the element we are placing in
         const humidDay5El = document.querySelector("#day-five-humid");
         //set textContent for each one
         humidDay5El.textContent = humidDay5;
 
         //get windspeed day1
-        var windDay1 = response2.list[6].wind.speed;
+        const windDay1 = data.list[6].wind.speed;
         //target the element we are placing in
         const windDay1El = document.querySelector("#day-one-wind");
         //set textContent for each one
         windDay1El.textContent = windDay1 + " mph";
 
         //get windspeed day2
-        var windDay2 = response2.list[14].wind.speed;
+        const windDay2 = data.list[14].wind.speed;
         //target the element we are placing in
         const windDay2El = document.querySelector("#day-two-wind");
         //set textContent for each one
         windDay2El.textContent = windDay2 + " mph";
 
         //get windspeed day3
-        var windDay3 = response2.list[22].wind.speed;
+        const windDay3 = data.list[22].wind.speed;
         //target the element we are placing in
         const windDay3El = document.querySelector("#day-three-wind");
         //set textContent for each one
         windDay3El.textContent = windDay3 + " mph";
 
         //get windspeed day4
-        var windDay4 = response2.list[30].wind.speed;
+        const windDay4 = data.list[30].wind.speed;
         //target the element we are placing in
         const windDay4El = document.querySelector("#day-four-wind");
         //set textContent for each one
         windDay4El.textContent = windDay4 + " mph";
 
         //get windspeed day5
-        var windDay5 = response2.list[38].wind.speed;
+        const windDay5 = data.list[38].wind.speed;
         //target the element we are placing in
         const windDay5El = document.querySelector("#day-five-wind");
         //set textContent for each one
         windDay5El.textContent = windDay5 + " mph";
 
         //get description day1
-        var descDay1 = response2.list[6].weather[0].description;
+        const descDay1 = data.list[6].weather[0].description;
         //target the element we are placing in
         const descDay1El = document.querySelector("#day-one-description");
         //set textContent for each one
         descDay1El.textContent = descDay1;
 
         //get description day2
-        var descDay2 = response2.list[14].weather[0].description;
+        const descDay2 = data.list[14].weather[0].description;
         //target the element we are placing in
         const descDay2El = document.querySelector("#day-two-description");
         //set textContent for each one
         descDay2El.textContent = descDay2;
 
         //get description day3
-        var descDay3 = response2.list[22].weather[0].description;
+        const descDay3 = data.list[22].weather[0].description;
         //target the element we are placing in
         const descDay3El = document.querySelector("#day-three-description");
         //set textContent for each one
         descDay3El.textContent = descDay3;
         
         //get description day4
-        var descDay4 = response2.list[30].weather[0].description;
+        const descDay4 = data.list[30].weather[0].description;
         //target the element we are placing in
         const descDay4El = document.querySelector("#day-four-description");
         //set textContent for each one
         descDay4El.textContent = descDay4;
 
         //get description day5
-        var descDay5 = response2.list[38].weather[0].description;
+        const descDay5 = data.list[38].weather[0].description;
         //target the element we are placing in
         const descDay5El = document.querySelector("#day-five-description");
         //set textContent for each one
@@ -470,32 +468,27 @@ function cityCurrentApiCall(searchedCity){
         apiCurrentUrl + searchedCity
         )
         .then(function(response){
-            console.log(response);
             if(response.ok){
                 response.json()
-                .then(function(response2){
-                    console.log("city name object fetched from server")
-                    console.log(response2);
-                    console.log("city name fetched from server");
-                    console.log(response2.name);
+                .then(function({ data }){
                     
-                    getCurrentWeatherIcon(response2.weather[0].icon);
-                    getCurrentTemp(response2.main.temp);
-                    getCurrentHumidity(response2.main.humidity);
-                    getCurrentWindSpeed(response2.wind.speed);
-                    getCurrentDescription(response2.weather[0].description);
+                    getCurrentWeatherIcon(data.weather[0].icon);
+                    getCurrentTemp(data.main.temp);
+                    getCurrentHumidity(data.main.humidity);
+                    getCurrentWindSpeed(data.wind.speed);
+                    getCurrentDescription(data.weather[0].description);
                     
                     //get the lat and lon values from the response place as arguments for this function
-                    //let lat = response2.coord.lat;
-                    //let lon = response2.coord.lon;
-                    cityCurrentUVIndexApiCall(response2.coord.lat, response2.coord.lon);
+                    //let lat = data.coord.lat;
+                    //let lon = data.coord.lon;
+                    cityCurrentUVIndexApiCall(data.coord.lat, data.coord.lon);
                 
-                    var fetchedCityContainer = document.querySelector("#city-header");
+                    const fetchedCityContainer = document.querySelector("#city-header");
                     //change this element to an <a> anchor element
                     //set the function inside the HTML on click execute displaySearchedCity
                     var fetchedCityEl = document.createElement("p");
                     fetchedCityEl.classList = "city-alt";
-                    fetchedCityEl.textContent = "(" + response2.name + ", " + response2.sys.country + ")";
+                    fetchedCityEl.textContent = "(" + data.name + ", " + data.sys.country + ")";
                     fetchedCityContainer.appendChild(fetchedCityEl);
                 });
             } else {
@@ -563,9 +556,6 @@ function displaySearchedCity(){
     event.preventDefault();
     
     //check button was clicked
-    console.log("here is the element we targeted with our click event");
-    console.log(event.target);
-    console.log("search button was clicked")
     
     const cityHeader = document.querySelector("#city-header");
     //remove the hide class before we append
@@ -592,8 +582,6 @@ function displaySearchedCity(){
     citySearchEl.classList = "slight-margin-allaround width-100 border-bottom-user"
     
     //check we are getting it in the console
-    console.log("here is the city name")
-    console.log(cityName);
 
     //put the city name inside the cityEl span element and the city-name-header element
     updateCurrentDate();
@@ -603,8 +591,6 @@ function displaySearchedCity(){
     //prepend the cityEl into the citylistEl
     citylistEl.prepend(citySearchedButtonEl);
     citySearchedButtonEl.addEventListener("click", function(event){
-        //console.log("here is the element we targeted with our click event")
-        console.log(event.target);
         formInputTextAreaEl.value = cityName;
         displaySearchedCityFromButton(formInputTextAreaEl.value);
     });
@@ -619,10 +605,7 @@ function displaySearchedCity(){
 
 function clearInputField(){
     let inputForm = document.querySelector("#input-form");
-    //console.log(text);
     inputForm[0].value = "";
-    //console.log("cleared the input field")
-    //console.log(inputForm[0].value);
 }
 
 //submit button event listener
@@ -635,8 +618,3 @@ inputFormEl.addEventListener("submit", function(event){
     event.preventDefault();
     displaySearchedCity();
 });
-
-
-
-
-
