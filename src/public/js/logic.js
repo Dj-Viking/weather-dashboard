@@ -49,7 +49,7 @@ const apiCurrentUrl =
 
 const apiFiveDayUrl = 
 // `http://localhost:4000/fiveday?q=`
-`https://weather-nomad.herokuapp.com//fiveday?q=`
+`https://weather-nomad.herokuapp.com/fiveday?q=`
  /*`https://api.openweathermap.org/data/2.5/forecast?APPID=${WEATHER_KEY}&q=`;*/
 
 
