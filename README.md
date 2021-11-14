@@ -1,7 +1,7 @@
 # Weather Dashboard
 
 ## Deployment Link
-https://dj-viking.github.io/weather-dashboard/
+https://weather-nomad.herokuapp.com/
 
 ## Description
 
