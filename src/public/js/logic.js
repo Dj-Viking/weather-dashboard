@@ -66,9 +66,7 @@ function saveCity(cityName){
     //so place this function where
     //place the cityname passed in, to the array that we are storing
     cityArray.push(cityName);
-    console.log(cityArray);
     localStorage.setItem("cityArray", JSON.stringify(cityArray));
-    console.log("city array got updated in storage!")
 }
 //push the city string name into a temparray that gets pushed into localStorage
 //have to check notes again for the storage...
@@ -77,7 +75,6 @@ function saveCity(cityName){
 //on the clicked <a> element that has the city name inside execute load city
 loadCity();
 function loadCity(){
-    console.log("loading clicked city from the past searches list")
     cityArray = JSON.parse(localStorage.getItem("cityArray"));
     if (!cityArray || cityArray === null){
         cityArray = []
@@ -99,8 +96,6 @@ function loadCity(){
         //append the span into the button
         cityNameButtonEl.appendChild(cityNameEl);
         cityNameButtonEl.addEventListener("click", function(event){
-            //console.log("here is the element we targeted with our click event")
-            console.log(event.target);
             formInputTextAreaEl.value = cityArray[i];
             displaySearchedCityFromButton(formInputTextAreaEl.value);
         });
@@ -168,7 +163,6 @@ function getFiveDayForecastDates(){
         futureForecastDateEl.textContent = daySelectorElDate;
 
         //checking if this works, YAY!!
-        //console.log(i);
     }
 }
 
@@ -183,8 +177,6 @@ function cityCurrentUVIndexApiCall(lat, lon){
         return response.json();
     })
     .then(function({ data }){
-        console.log("response for the current day UV index object or value");
-        console.log(data);
         //get the UV index number
         let currentUVnum = data.value;
 
@@ -248,8 +240,6 @@ function cityCurrentUVIndexApiCall(lat, lon){
 //         return response.json();
 //     })
 //     .then(function(data){
-//         console.log("response for the five day forecast UV index object or value")
-//         console.log(data);
 
     //     //for loop to iterate through each date based on the 12pm index value
     //     for (let i = 1; i < 6; i++){
@@ -282,8 +272,6 @@ function cityFiveDayApiCall(searchedCity){
         return response.json();
     })
     .then(function({ data }){
-        console.log("fetched 5 day forecast of city searched");
-        console.log(data);//get the 12pm midday hour weather indexes
         //day1 data.list[6]
         //day2 data.list[14]
         //day3 data.list[22]
@@ -480,14 +468,9 @@ function cityCurrentApiCall(searchedCity){
         apiCurrentUrl + searchedCity
         )
         .then(function(response){
-            console.log(response);
             if(response.ok){
                 response.json()
                 .then(function({ data }){
-                    console.log("city name object fetched from server")
-                    console.log(data);
-                    console.log("city name fetched from server");
-                    console.log(data.name);
                     
                     getCurrentWeatherIcon(data.weather[0].icon);
                     getCurrentTemp(data.main.temp);
@@ -573,9 +556,6 @@ function displaySearchedCity(){
     event.preventDefault();
     
     //check button was clicked
-    console.log("here is the element we targeted with our click event");
-    console.log(event.target);
-    console.log("search button was clicked")
     
     const cityHeader = document.querySelector("#city-header");
     //remove the hide class before we append
@@ -602,8 +582,6 @@ function displaySearchedCity(){
     citySearchEl.classList = "slight-margin-allaround width-100 border-bottom-user"
     
     //check we are getting it in the console
-    console.log("here is the city name")
-    console.log(cityName);
 
     //put the city name inside the cityEl span element and the city-name-header element
     updateCurrentDate();
@@ -613,8 +591,6 @@ function displaySearchedCity(){
     //prepend the cityEl into the citylistEl
     citylistEl.prepend(citySearchedButtonEl);
     citySearchedButtonEl.addEventListener("click", function(event){
-        //console.log("here is the element we targeted with our click event")
-        console.log(event.target);
         formInputTextAreaEl.value = cityName;
         displaySearchedCityFromButton(formInputTextAreaEl.value);
     });
@@ -629,10 +605,7 @@ function displaySearchedCity(){
 
 function clearInputField(){
     let inputForm = document.querySelector("#input-form");
-    //console.log(text);
     inputForm[0].value = "";
-    //console.log("cleared the input field")
-    //console.log(inputForm[0].value);
 }
 
 //submit button event listener
