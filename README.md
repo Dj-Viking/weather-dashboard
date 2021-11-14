@@ -1,7 +1,8 @@
 # Weather Dashboard
 
 ## Deployment Link
-https://weather-nomad.herokuapp.com/
+<a href="https://weather-nomad.herokuapp.com/" rel="noopener noreferrer">Weather Nomad</a>
+
 
 ## Description
 
@@ -23,4 +24,4 @@ https://weather-nomad.herokuapp.com/
 - Javascript, Vanilla Library and Moment.js Library
 
 ## Screenshot
-![Image of Application Page](./assets/images/page-screenshot.png)
+![Image of Application Page](./src/public/images/page-screenshot.png)
