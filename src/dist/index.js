@@ -26,15 +26,14 @@ app.get("/current", (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     if (!req.query.q) {
         return res.status(422).json({ error: "Error! missing q query parameter!" });
     }
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${req.query.q}&appid=${API_KEY}`;
     try {
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${req.query.q}&appid=${API_KEY}`;
         const response = yield (0, node_fetch_1.default)(url);
         const data = yield response.json();
-        console.log("api fetch data", data);
         return res.status(200).json({ data });
     }
     catch (error) {
-        console.error(error);
+        console.error("error when requesting current weather data", error);
         return res.status(500).json({ error });
     }
 }));
@@ -42,16 +41,14 @@ app.get("/fiveday", (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     if (!req.query.q) {
         return res.status(422).json({ error: "Error! missing q query parameter!" });
     }
-    console.log("got a request for fiveday forecast from client", req.query.q);
     try {
         const url = `https://api.openweathermap.org/data/2.5/forecast?APPID=${API_KEY}&q=${req.query.q}`;
         const response = yield (0, node_fetch_1.default)(url);
         const data = yield response.json();
-        console.log("five day forecast data", data);
         return res.status(200).json({ data });
     }
     catch (error) {
-        console.error("error when requesting for five day forecast");
+        console.error("error when requesting for five day forecast: ", error);
         return res.status(500).json({ error });
     }
 }));
@@ -66,7 +63,7 @@ app.get("/uvindex", (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         return res.status(200).json({ data });
     }
     catch (error) {
-        console.error(error);
+        console.error("error when requesting for uv index: ", error);
         return res.status(500).json({ error });
     }
 }));
