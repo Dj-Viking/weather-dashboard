@@ -282,195 +282,51 @@ function cityFiveDayApiCall(searchedCity){
         //day4 data.list[30]
         //day5 data.list[38]
         
-        //DONE
-        //get day1 icon
-        const day1IconId = data.list[6].weather[0].icon;
-        iconDay1El = document.querySelector("#day1-img");
-        iconDay1El.setAttribute("src", "https://openweathermap.org/img/wn/" + day1IconId + "@2x.png");
-        
-        //get day2 icon
-        const day2IconId = data.list[14].weather[0].icon;
-        iconDay2El = document.querySelector("#day2-img")
-        iconDay2El.setAttribute("src", "https://openweathermap.org/img/wn/" + day2IconId + "@2x.png");
-        
-        //get day3 icon
-        const day3IconId = data.list[22].weather[0].icon;
-        iconDay3El = document.querySelector("#day3-img")
-        iconDay3El.setAttribute("src", "https://openweathermap.org/img/wn/" + day3IconId + "@2x.png");
-        
-        //get day4 icon
-        const day4IconId = data.list[30].weather[0].icon;
-        iconDay4El = document.querySelector("#day4-img")
-        iconDay4El.setAttribute("src", "https://openweathermap.org/img/wn/" + day4IconId + "@2x.png");
-        
-        //get day5 icon
-        const day5IconId = data.list[38].weather[0].icon;
-        iconDay5El = document.querySelector("#day5-img")
-        iconDay5El.setAttribute("src", "https://openweathermap.org/img/wn/" + day5IconId + "@2x.png");
-        
-        //get temp day1 CONVERT UNITS!!!
-        const tempDay1 = data.list[6].main.temp;
-        //target the element we are placing in
-        const tempDay1El = document.querySelector("#day-one-temp");
-        //convert units
-        const tempFOne = tempConvKtoF(tempDay1);
-        const tempCOne = tempConvKtoC(tempDay1);
-        //set textContent
-        tempDay1El.textContent = tempFOne + "°F / " + tempCOne + "°C";
+        let day = 0;
+        for (let i = 1; i < 6; i++) {
+            day++;
+            const dayIconId = data.list[i + 5].weather[0].icon;
+            const iconDayEl = document.querySelector(`#day${day}-img`);
+            iconDayEl.setAttribute("src", "https://openweathermap.org/img/wn/" + dayIconId + "@2x.png");
+            
+            //get temp day1 CONVERT UNITS!!!
+            const tempDay = data.list[i + 5].main.temp;
+            //target the element we are placing in
+            const tempDayEl = document.querySelector(`#day-${day}-temp`);
+            //convert units
+            const tempFOne = tempConvKtoF(tempDay);
+            const tempCOne = tempConvKtoC(tempDay);
+            //set textContent
+            tempDayEl.textContent = tempFOne + "°F / " + tempCOne + "°C";
 
-        //get temp day2
-        const tempDay2 = data.list[14].main.temp;
-        //target the element we are placing in
-        tempDay2El = document.querySelector("#day-two-temp");
-         //convert units
-         const tempFTwo = tempConvKtoF(tempDay2);
-         const tempCTwo = tempConvKtoC(tempDay2);
-         //set textContent
-         tempDay2El.textContent = tempFTwo + "°F / " + tempCTwo + "°C";
+            //get humidity day1
+            const humidDay = data.list[i + 5].main.humidity;
+            //target the element we are placing in
+            const humidDay1El = document.querySelector(`#day-${day}-humid`);
+            //set textContent for each one
+            humidDay1El.textContent = humidDay;
 
-        //get temp day3
-        const tempDay3 = data.list[22].main.temp;
-        //target the element we are placing in
-        tempDay3El = document.querySelector("#day-three-temp");
-         //convert units
-         const tempFThree = tempConvKtoF(tempDay3);
-         const tempCThree = tempConvKtoC(tempDay3);
-         //set textContent
-         tempDay3El.textContent = tempFThree + "°F / " + tempCThree + "°C";
+            //get windspeed day1
+            const windDay = data.list[i + 5].wind.speed;
+            //target the element we are placing in
+            const windDayEl = document.querySelector(`#day-${day}-wind`);
+            //set textContent for each one
+            windDayEl.textContent = windDay + " mph";
 
-        //get temp day4
-        const tempDay4 = data.list[30].main.temp;
-        //target the element we are placing in
-        tempDay4El = document.querySelector("#day-four-temp");
-         //convert units
-         const tempFFour = tempConvKtoF(tempDay4);
-         const tempCFour = tempConvKtoC(tempDay4);
-         //set textContent
-         tempDay4El.textContent = tempFFour + "°F / " + tempCFour + "°C";
-
-        //get temp day5
-        const tempDay5 = data.list[38].main.temp;
-        //target the element we are placing in
-        tempDay5El = document.querySelector("#day-five-temp");
-         //convert units
-         const tempFFive = tempConvKtoF(tempDay5);
-         const tempCFive = tempConvKtoC(tempDay5);
-         //set textContent
-         tempDay5El.textContent = tempFFive + "°F / " + tempCFive + "°C";
-
-        //get humidity day1
-        const humidDay1 = data.list[6].main.humidity;
-        //target the element we are placing in
-        const humidDay1El = document.querySelector("#day-one-humid");
-        //set textContent for each one
-        humidDay1El.textContent = humidDay1;
-
-        //get humidity day2
-        const humidDay2 = data.list[14].main.humidity;
-        //target the element we are placing in
-        const humidDay2El = document.querySelector("#day-two-humid");
-        //set textContent for each one
-        humidDay2El.textContent = humidDay2;
-
-        //get humidity day3
-        const humidDay3 = data.list[22].main.humidity;
-        //target the element we are placing in
-        const humidDay3El = document.querySelector("#day-three-humid");
-        //set textContent for each one
-        humidDay3El.textContent = humidDay3;
-
-        //get humidity day4
-        const humidDay4 = data.list[30].main.humidity;
-        //target the element we are placing in
-        const humidDay4El = document.querySelector("#day-four-humid");
-        //set textContent for each one
-        humidDay4El.textContent = humidDay4;
-
-        //get humidity day5
-        const humidDay5 = data.list[38].main.humidity;
-        //target the element we are placing in
-        const humidDay5El = document.querySelector("#day-five-humid");
-        //set textContent for each one
-        humidDay5El.textContent = humidDay5;
-
-        //get windspeed day1
-        const windDay1 = data.list[6].wind.speed;
-        //target the element we are placing in
-        const windDay1El = document.querySelector("#day-one-wind");
-        //set textContent for each one
-        windDay1El.textContent = windDay1 + " mph";
-
-        //get windspeed day2
-        const windDay2 = data.list[14].wind.speed;
-        //target the element we are placing in
-        const windDay2El = document.querySelector("#day-two-wind");
-        //set textContent for each one
-        windDay2El.textContent = windDay2 + " mph";
-
-        //get windspeed day3
-        const windDay3 = data.list[22].wind.speed;
-        //target the element we are placing in
-        const windDay3El = document.querySelector("#day-three-wind");
-        //set textContent for each one
-        windDay3El.textContent = windDay3 + " mph";
-
-        //get windspeed day4
-        const windDay4 = data.list[30].wind.speed;
-        //target the element we are placing in
-        const windDay4El = document.querySelector("#day-four-wind");
-        //set textContent for each one
-        windDay4El.textContent = windDay4 + " mph";
-
-        //get windspeed day5
-        const windDay5 = data.list[38].wind.speed;
-        //target the element we are placing in
-        const windDay5El = document.querySelector("#day-five-wind");
-        //set textContent for each one
-        windDay5El.textContent = windDay5 + " mph";
-
-        //get description day1
-        const descDay1 = data.list[6].weather[0].description;
-        //target the element we are placing in
-        const descDay1El = document.querySelector("#day-one-description");
-        //set textContent for each one
-        descDay1El.textContent = descDay1;
-
-        //get description day2
-        const descDay2 = data.list[14].weather[0].description;
-        //target the element we are placing in
-        const descDay2El = document.querySelector("#day-two-description");
-        //set textContent for each one
-        descDay2El.textContent = descDay2;
-
-        //get description day3
-        const descDay3 = data.list[22].weather[0].description;
-        //target the element we are placing in
-        const descDay3El = document.querySelector("#day-three-description");
-        //set textContent for each one
-        descDay3El.textContent = descDay3;
-        
-        //get description day4
-        const descDay4 = data.list[30].weather[0].description;
-        //target the element we are placing in
-        const descDay4El = document.querySelector("#day-four-description");
-        //set textContent for each one
-        descDay4El.textContent = descDay4;
-
-        //get description day5
-        const descDay5 = data.list[38].weather[0].description;
-        //target the element we are placing in
-        const descDay5El = document.querySelector("#day-five-description");
-        //set textContent for each one
-        descDay5El.textContent = descDay5;
+            //get description day1
+            const descDay = data.list[i + 5].weather[0].description;
+            //target the element we are placing in
+            const descDayEl = document.querySelector(`#day-${day}-description`);
+            //set textContent for each one
+            descDayEl.textContent = descDay;
+        }
     });
 }
 
 //add catch for when a city name could not be found, send a message to user and return
 //check if searched city is null and alert user no city name was entered
 function cityCurrentApiCall(searchedCity){
-    fetch(
-        apiCurrentUrl + searchedCity
-        )
+    fetch(apiCurrentUrl + searchedCity)
         .then(function(response){
             if(response.ok){
                 response.json()
